@@ -16,21 +16,22 @@ class Accordiancontroller extends Controller
     
         foreach ($provinces as $province) {
             $provinceName = $province->name;
-            $filteredRegencies = [];
     
             foreach ($province->regencies as $regency) {
-                if ($regency->distributors->isNotEmpty()) {
-                    $filteredRegencies[$regency->name] = $regency->distributors;
+                $regencyName = $regency->name;
+                $distributors = $regency->distributors;
+                if ($distributors->isNotEmpty()) {
+                    if (!isset($distributorsByRegion[$provinceName])) {
+                        $distributorsByRegion[$provinceName] = [];
+                    }
+    
+                    $distributorsByRegion[$provinceName][$regencyName] = $distributors;
                 }
             }
-    
-            // Tetap masukkan provinsi, meskipun regency-nya kosong
-            $distributorsByRegion[$provinceName] = $filteredRegencies;
         }
     
         return view('accordian', compact('distributorsByRegion'));
     }
-    
     
 
     public function searchRegions(Request $request)

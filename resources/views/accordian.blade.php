@@ -447,7 +447,6 @@
                                                             </div>
                                                         </div>
 
-                                                        {{-- Card Body --}}
                                                         <div class="card-body">
                                                             <p>📞 <a
                                                                     href="tel:{{ $distributor->primary_phone }}">{{ $distributor->primary_phone }}</a>
@@ -455,18 +454,7 @@
                                                             <p>🚚
                                                                 {{ $distributor->shipments->pluck('name')->join(', ') }}
                                                             </p>
-                                                            <p>💵 COD Tersedia</p>
-
-                                                            <div class="location-info">
-                                                                <p>🌍 Provinsi: {{ strtoupper($provinceName) }}</p>
-                                                                <p>🏙️ Kabupaten: {{ strtoupper($regencyName) }}</p>
-                                                                <p>🏞️ Kecamatan:
-                                                                    {{ strtoupper($distributor->district->name ?? '-') }}
-                                                                </p>
-                                                                <p>🏡 Desa:
-                                                                    {{ strtoupper($distributor->village->name ?? '-') }}
-                                                                </p>
-                                                            </div>
+                                                            <p>💵 COD {{ $distributor->is_cod ? 'COD Tersedia' : 'Tidak ada COD' }} </p>
 
                                                             @if ($distributor->marketplaces && count($distributor->marketplaces))
                                                                 <div class="marketplace-icons mt-2">
@@ -481,8 +469,6 @@
                                                                 </div>
                                                             @endif
                                                         </div>
-
-                                                        {{-- Card Footer --}}
                                                         <div class="card-footer mt-3">
                                                             <button
                                                                 onclick="directToWA('{{ $distributor->primary_phone }}', 'Halo, saya tertarik untuk membeli produk Doorasi. Bisa bantu?')"
