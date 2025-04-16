@@ -442,7 +442,8 @@
                                                             <div class="ms-3">
                                                                 <p class="distributor-name">
                                                                     {{ $distributor->full_name }}</p>
-                                                                <p class="address">{{ $distributor->address }}, {{ $distributor->district->name }}, {{ $distributor->regency>name }}, {{ $distributor->province->name }}</p>
+                                                                    <p class="address">{{ $distributor->address }}, {{ $distributor->district->name }}, {{ $distributor->regency->name }}, {{ $distributor->province->name }}</p>
+
                                                                 <a href="{{ $distributor->google_maps_url }}"
                                                                     target="_blank" class="map-link btn btn-primary btn-sm text-white" style="text-decoration: none;">📍 Lihat di Google
                                                                     Maps</a>
