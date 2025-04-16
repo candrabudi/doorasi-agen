@@ -125,13 +125,13 @@
 
                     <div class="row mb-7">
                         <div class="col-md-6 fv-row">
-                            <label class="required fw-semibold fs-6 mb-2">Full Name</label>
+                            <label class="required fw-semibold fs-6 mb-2">Nama Lengkap</label>
                             <input type="text" name="full_name" class="form-control form-control-solid"
                                 value="{{ old('full_name', $user->distributor->full_name ?? '') }}" required>
                         </div>
 
                         <div class="col-md-6 fv-row">
-                            <label class="fw-semibold fs-6 mb-2">Primary Phone</label>
+                            <label class="fw-semibold fs-6 mb-2">Nomor Telepon Utama</label>
                             <input type="text" name="primary_phone" class="form-control form-control-solid"
                                 value="{{ old('primary_phone', $user->distributor->primary_phone ?? '') }}">
                         </div>
@@ -139,27 +139,21 @@
 
                     <div class="row mb-7">
                         <div class="col-md-6 fv-row">
-                            <label class="fw-semibold fs-6 mb-2">Secondary Phone</label>
-                            <input type="text" name="secondary_phone" class="form-control form-control-solid"
-                                value="{{ old('secondary_phone', $user->distributor->secondary_phone ?? '') }}">
+                            <label class="fw-semibold fs-6 mb-2">Email Distributor</label>
+                            <input type="email" name="distributor_email" class="form-control form-control-solid"
+                                value="{{ old('distributor_email', $user->distributor->email ?? '') }}">
                         </div>
 
                         <div class="col-md-6 fv-row">
-                            <label class="fw-semibold fs-6 mb-2">Distributor Email</label>
-                            <input type="email" name="distributor_email" class="form-control form-control-solid"
-                                value="{{ old('distributor_email', $user->distributor->email ?? '') }}">
+                            <label class="fw-semibold fs-6 mb-2">Kode Agen</label>
+                            <input type="text" name="agent_code" class="form-control form-control-solid"
+                                value="{{ old('agent_code', $user->distributor->agent_code ?? '') }}">
                         </div>
                     </div>
 
                     <div class="row mb-7">
                         <div class="col-md-6 fv-row">
-                            <label class="fw-semibold fs-6 mb-2">Agent Code</label>
-                            <input type="text" name="agent_code" class="form-control form-control-solid"
-                                value="{{ old('agent_code', $user->distributor->agent_code ?? '') }}">
-                        </div>
-
-                        <div class="col-md-6 fv-row">
-                            <label class="fw-semibold fs-6 mb-2">Google Maps URL</label>
+                            <label class="fw-semibold fs-6 mb-2">URL Google Maps</label>
                             <input type="text" name="google_maps_url" class="form-control form-control-solid"
                                 value="{{ old('google_maps_url', $user->distributor->google_maps_url ?? '') }}">
                         </div>
@@ -167,26 +161,26 @@
 
                     <div class="row mb-7">
                         <div class="col-12 fv-row">
-                            <label class="fw-semibold fs-6 mb-2">Address</label>
+                            <label class="fw-semibold fs-6 mb-2">Alamat</label>
                             <textarea name="address" class="form-control form-control-solid" rows="3">{{ old('address', $user->distributor->address ?? '') }}</textarea>
                         </div>
                     </div>
 
                     <div class="row mb-7">
                         <div class="col-12 fv-row">
-                            <label class="fw-semibold fs-6 mb-2">Options</label>
+                            <label class="fw-semibold fs-6 mb-2">Opsi</label>
                             <div class="d-flex gap-5 align-items-center">
                                 <div class="form-check form-check-custom form-check-solid">
                                     <input id="is_cod" class="form-check-input" type="checkbox" name="is_cod"
                                         value="1"
                                         {{ old('is_cod', $user->distributor->is_cod ?? false) ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="is_cod">Cash on Delivery (COD)</label>
+                                    <label class="form-check-label" for="is_cod">Bayar di Tempat (COD)</label>
                                 </div>
                                 <div class="form-check form-check-custom form-check-solid">
                                     <input id="is_shipping" class="form-check-input" type="checkbox" name="is_shipping"
                                         value="1"
                                         {{ old('is_shipping', $user->distributor->is_shipping ?? false) ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="is_shipping">Shipping Support</label>
+                                    <label class="form-check-label" for="is_shipping">Dukungan Pengiriman</label>
                                 </div>
                             </div>
                         </div>
@@ -194,7 +188,7 @@
 
                     <div class="row mb-7" id="shipping-methods-wrapper" style="display: none;">
                         <div class="col-12 fv-row">
-                            <label class="fw-semibold fs-6 mb-2">Available Shipping Methods</label>
+                            <label class="fw-semibold fs-6 mb-2">Metode Pengiriman Tersedia</label>
                             <div class="d-flex flex-wrap gap-4">
                                 @foreach ($shipments as $shipment)
                                     <div class="form-check form-check-custom form-check-solid">
@@ -206,17 +200,16 @@
                                         </label>
                                     </div>
                                 @endforeach
-
                             </div>
                         </div>
                     </div>
 
                     <div class="row mb-7">
                         <div class="col-md-6 fv-row">
-                            <label class="fw-semibold fs-6 mb-2">Province</label>
+                            <label class="fw-semibold fs-6 mb-2">Provinsi</label>
                             <select id="province" name="province_id" class="form-select form-select-solid"
                                 data-control="select2" required>
-                                <option value="">Select Province</option>
+                                <option value="">Pilih Provinsi</option>
                                 @foreach ($provinces as $province)
                                     <option value="{{ $province->id }}"
                                         {{ old('province_id', $user->distributor->province_id ?? '') == $province->id ? 'selected' : '' }}>
@@ -227,28 +220,27 @@
                         </div>
 
                         <div class="col-md-6 fv-row">
-                            <label class="fw-semibold fs-6 mb-2">Regency</label>
+                            <label class="fw-semibold fs-6 mb-2">Kabupaten/Kota</label>
                             <select id="regency" name="regency_id" class="form-select form-select-solid"
                                 data-control="select2" required>
-                                <option value="">Select Regency</option>
+                                <option value="">Pilih Kabupaten/Kota</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="row mb-7">
                         <div class="col-md-6 fv-row">
-                            <label class="fw-semibold fs-6 mb-2">District</label>
+                            <label class="fw-semibold fs-6 mb-2">Kecamatan</label>
                             <select id="district" name="district_id" class="form-select form-select-solid"
                                 data-control="select2" required>
-                                <option value="">Select District</option>
+                                <option value="">Pilih Kecamatan</option>
                             </select>
                         </div>
                     </div>
 
-
                     <div class="row mb-7">
                         <div class="col-12">
-                            <label class="fw-semibold fs-6 mb-2">Marketplaces</label>
+                            <label class="fw-semibold fs-6 mb-2">Marketplace</label>
                             <div class="d-flex flex-column gap-4">
                                 @foreach ($marketPlaces as $marketPlace)
                                     @php
@@ -269,7 +261,7 @@
                                         </div>
                                         <input type="url" name="market_places[{{ $marketPlace->id }}][url]"
                                             class="form-control form-control-solid marketplace-url flex-grow-1"
-                                            placeholder="URL for {{ $marketPlace->name }}"
+                                            placeholder="URL untuk {{ $marketPlace->name }}"
                                             value="{{ old("market_places.{$marketPlace->id}.url", $existing->pivot->url ?? '') }}"
                                             style="{{ $existing ? '' : 'display:none;' }}">
                                     </div>
@@ -281,16 +273,17 @@
             </div>
 
             <div class="card-footer d-flex justify-content-end py-6 px-9">
-                <a href="{{ route('users.index') }}" class="btn btn-light me-3">Cancel</a>
+                <a href="{{ route('users.index') }}" class="btn btn-light me-3">Batal</a>
                 <button type="submit" class="btn btn-primary">
-                    <span class="indicator-label">Update</span>
+                    <span class="indicator-label">Perbarui</span>
                     <span class="indicator-progress">
-                        Please wait...
+                        Mohon tunggu...
                         <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                     </span>
                 </button>
             </div>
         </form>
+
     </div>
 @endsection
 @push('scripts')
