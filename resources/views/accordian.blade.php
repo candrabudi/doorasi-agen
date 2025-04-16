@@ -9,6 +9,8 @@
         integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 
 <body>
@@ -377,9 +379,9 @@
                                             </div>
                                         </div>
                                         <div class="card-body">
-                                            <p>📞 <a href="tel:${distributor.phone}">${distributor.phone}</a></p>
-                                            <p>🚚 ${distributor.shipments.join(', ')}</p>
-                                            <p>💵 ${distributor.cod ? 'COD Tersedia' : 'Tidak ada COD'}</p>
+                                            <p><i class="fas fa-phone" style="color: gray;"></i> <a href="tel:${distributor.phone}">${distributor.phone}</a></p>
+                                            <p><i class="fas fa-truck" style="color: gray;"></i> ${distributor.shipments.join(', ')}</p>
+                                            <p><i class="fas fa-money-bill-wave" style="color: gray;"></i> COD ${distributor.cod ? 'Tersedia' : 'Tidak ada COD'}</p>
 
                                             <div class="marketplace-icons">
                                                 ${distributor.marketplaces.map(link => `
@@ -440,7 +442,7 @@
                                                             <div class="ms-3">
                                                                 <p class="distributor-name">
                                                                     {{ $distributor->full_name }}</p>
-                                                                <p class="address">{{ $distributor->address }}</p>
+                                                                <p class="address">{{ $distributor->address }}, {{ $distributor->district->name }}, {{ $distributor->regency>name }}, {{ $distributor->province->name }}</p>
                                                                 <a href="{{ $distributor->google_maps_url }}"
                                                                     target="_blank" class="map-link btn btn-primary btn-sm text-white" style="text-decoration: none;">📍 Lihat di Google
                                                                     Maps</a>
@@ -448,13 +450,10 @@
                                                         </div>
 
                                                         <div class="card-body">
-                                                            <p>📞 <a
-                                                                    href="tel:{{ $distributor->primary_phone }}">{{ $distributor->primary_phone }}</a>
-                                                            </p>
-                                                            <p>🚚
-                                                                {{ $distributor->shipments->pluck('name')->join(', ') }}
-                                                            </p>
-                                                            <p>💵 COD {{ $distributor->is_cod ? 'COD Tersedia' : 'Tidak ada COD' }} </p>
+                                                            <p><i class="fas fa-phone" style="color: gray;"></i> <a href="tel:{{ $distributor->primary_phone }}">{{ $distributor->primary_phone }}</a></p>
+                                                            <p><i class="fas fa-truck" style="color: gray;"></i> {{ $distributor->shipments->pluck('name')->join(', ') }}</p>
+                                                            <p><i class="fas fa-money-bill-wave" style="color: gray;"></i> COD {{ $distributor->is_cod ? 'COD Tersedia' : 'Tidak ada COD' }}</p>
+                                                            
 
                                                             @if ($distributor->marketplaces && count($distributor->marketplaces))
                                                                 <div class="marketplace-icons mt-2">
