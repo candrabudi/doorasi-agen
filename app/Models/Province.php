@@ -16,4 +16,9 @@ class Province extends Model
         'longitude',
     ];
 
+    public function regencies()
+    {
+        return $this->hasMany(Regency::class);
+    }
+
 }

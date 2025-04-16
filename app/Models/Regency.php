@@ -22,4 +22,15 @@ class Regency extends Model
     {
         return $this->belongsTo(Province::class);
     }
+
+    public function districts()
+    {
+        return $this->hasMany(District::class);
+    }
+
+    public function distributors()
+    {
+        return $this->hasMany(Distributor::class);
+    }
+
 }

@@ -18,9 +18,12 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
+        'phone_number',
+        'role',
+        'status',
     ];
 
     /**
@@ -45,4 +48,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function distributor()
+    {
+        return $this->hasOne(Distributor::class);
+    }
+    
 }

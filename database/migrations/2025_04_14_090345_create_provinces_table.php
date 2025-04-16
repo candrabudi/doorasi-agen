@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('alt_name')->nullable();
-            $table->string('slug')->unique();
             $table->decimal('latitude', 10, 5)->nullable();
             $table->decimal('longitude', 10, 5)->nullable();
             $table->timestamps();
