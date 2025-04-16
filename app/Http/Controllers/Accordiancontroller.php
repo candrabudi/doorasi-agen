@@ -10,29 +10,28 @@ class Accordiancontroller extends Controller
 {
     public function showDistributors()
     {
-        // Ambil semua provinsi beserta regencies dan distributors
         $provinces = Province::with(['regencies.distributors.shipments', 'regencies.distributors.district'])->get();
-
+    
         $distributorsByRegion = [];
-
+    
         foreach ($provinces as $province) {
             $provinceName = $province->name;
-
+            $filteredRegencies = [];
+    
             foreach ($province->regencies as $regency) {
-                $regencyName = $regency->name;
-
-                // Ambil semua distributor pada regency ini
-                $distributors = $regency->distributors;
-
-                if (!isset($distributorsByRegion[$provinceName])) {
-                    $distributorsByRegion[$provinceName] = [];
+                if ($regency->distributors->isNotEmpty()) {
+                    $filteredRegencies[$regency->name] = $regency->distributors;
                 }
-
-                $distributorsByRegion[$provinceName][$regencyName] = $distributors;
             }
+    
+            // Tetap masukkan provinsi, meskipun regency-nya kosong
+            $distributorsByRegion[$provinceName] = $filteredRegencies;
         }
+    
         return view('accordian', compact('distributorsByRegion'));
     }
+    
+    
 
     public function searchRegions(Request $request)
     {
