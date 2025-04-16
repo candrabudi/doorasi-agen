@@ -56,11 +56,10 @@ class DistributorController extends Controller
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'nullable|string|min:6',
             'phone_number' => 'required|string|max:15',
-            'role' => 'required|in:admin,distributor',
+            // 'role' => 'required|in:admin,distributor',
             'status' => 'nullable|boolean',
             'full_name' => 'required|string|max:255',
             'primary_phone' => 'nullable|string|max:15',
-            // 'secondary_phone' => 'nullable|string|max:15',
             'distributor_email' => 'nullable|email|max:255',
             'agent_code' => 'nullable|string|max:255',
             'google_maps_url' => 'nullable|url',
@@ -72,7 +71,6 @@ class DistributorController extends Controller
             'province_id' => 'required|exists:provinces,id',
             'regency_id' => 'required|exists:regencies,id',
             'district_id' => 'required|exists:districts,id',
-            // 'village_id' => 'required|exists:villages,id',
         ]);
 
         DB::beginTransaction();
@@ -84,13 +82,13 @@ class DistributorController extends Controller
                 'password' => $validatedData['password'] ? Hash::make($validatedData['password']) : null,
                 'phone_number' => $validatedData['phone_number'],
                 'status' => $validatedData['status'] ?? 0,
+                'role' => 'distributor'
             ]);
 
             $distributor = Distributor::create([
                 'user_id' => $user->id,
                 'full_name' => $validatedData['full_name'],
                 'primary_phone' => $validatedData['primary_phone'],
-                // 'secondary_phone' => $validatedData['secondary_phone'],
                 'email' => $validatedData['distributor_email'],
                 'agent_code' => $validatedData['agent_code'],
                 'google_maps_url' => $validatedData['google_maps_url'],
