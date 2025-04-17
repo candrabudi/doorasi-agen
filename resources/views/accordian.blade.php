@@ -380,7 +380,7 @@
                                         </div>
                                         <div class="card-body">
                                             <p><i class="fas fa-phone" style="color: gray;"></i> <a href="tel:${distributor.phone}">${distributor.phone}</a></p>
-                                            <p><i class="fas fa-truck" style="color: gray;"></i> ${distributor.shipments.join(', ')}</p>
+                                            <p><i class="fas fa-truck" style="color: gray;"></i> Kurir Lainnya ${distributor.shipments.join(' & ')}</p>
                                             <p><i class="fas fa-money-bill-wave" style="color: gray;"></i> ${distributor.cod ? 'COD / Cash on Delivery' : 'Tidak ada COD'}</p>
 
                                             <div class="marketplace-icons">
@@ -452,8 +452,8 @@
 
                                                         <div class="card-body">
                                                             <p><i class="fas fa-phone" style="color: gray;"></i> <a href="tel:{{ $distributor->primary_phone }}">{{ $distributor->primary_phone }}</a></p>
-                                                            <p><i class="fas fa-truck" style="color: gray;"></i> {{ $distributor->shipments->pluck('name')->join(', ') }}</p>
-                                                            <p><i class="fas fa-money-bill-wave" style="color: gray;"></i>{{ $distributor->is_cod ? 'COD / Cash on Delivery' : 'Tidak ada COD' }}</p>
+                                                            <p><i class="fas fa-truck" style="color: gray;"></i> Kurir Lainnya {{ $distributor->shipments->pluck('name')->join(' & ') }}</p>
+                                                            <p><i class="fas fa-money-bill-wave" style="color: gray;"></i> {{ $distributor->is_cod ? 'COD / Cash on Delivery' : 'Tidak ada COD' }}</p>
                                                             
 
                                                             @if ($distributor->marketplaces && count($distributor->marketplaces))
