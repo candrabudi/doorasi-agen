@@ -82,21 +82,7 @@ class DistributorController extends Controller
                 'password' => $validatedData['password'] ? Hash::make($validatedData['password']) : null,
                 'phone_number' => $validatedData['phone_number'],
                 'status' => $validatedData['status'] ?? 0,
-                'role' => 'distributor<style>
-    @media (max-width: 768px) {
-        .responsive-iframe-wrapper {
-            padding-bottom: 75%; /* Rasio 4:3 untuk mobile */
-        }
-    }
-</style>
-
-<div class="responsive-iframe-wrapper" style="position: relative; padding-bottom: 56.25%; height: 100; overflow: hidden;">
-    <iframe 
-        src="http://45.77.38.37:8822/accordian" 
-        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
-        allowfullscreen>
-    </iframe>
-</div>'
+                'role' => 'distributor'
             ]);
 
             $distributor = Distributor::create([
