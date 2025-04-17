@@ -161,8 +161,8 @@ class DistributorController extends Controller
             'is_shipping' => $request->has('is_shipping'),
             'province_id' => $request->province_id,
             'regency_id' => $request->regency_id,
-            // 'district_id' => $request->district_id,
-            'village_id' => $request->village_id,
+            'district_id' => $request->district_id,
+            // 'village_id' => $request->village_id,
         ]);
 
         if($request->shipping_methods) {
