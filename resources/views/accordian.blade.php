@@ -13,7 +13,7 @@
 
 </head>
 
-<body>
+<body style="background: #000000">
     <style>
         li {
             list-style: none;
@@ -319,7 +319,7 @@
 
                 <!-- SEARCH BAR -->
                 <section class="search-section">
-                    <p class="label">Cari Kota/Kecamatan</p>
+                    <p class="label" style="color: #FFF;">Cari Kota/Kecamatan</p>
                     <div class="search-wrapper">
                         <input type="text" class="search-input" placeholder="Cari lokasi..."
                             oninput="handleChange(this.value)" id="input-field">
@@ -371,7 +371,7 @@
                                     const card = `
                                     <div class="distributor-card">
                                         <div class="card-header">
-                                            <img src="${distributor.photo_url}" class="profile-img" alt="Foto Distributor">
+                                            <img src="{{ asset('assets/media/logos/logo-doorasi.png') }}" class="profile-img" alt="Foto Distributor">
                                             <div>
                                                 <p class="distributor-name">${distributor.name}</p>
                                                 <p class="address">${distributor.address}, ${distributor.district.name}, ${distributor.regency.name}, ${distributor.province.name}</p>
@@ -381,7 +381,7 @@
                                         <div class="card-body">
                                             <p><i class="fas fa-phone" style="color: gray;"></i> <a href="tel:${distributor.phone}">${distributor.phone}</a></p>
                                             <p><i class="fas fa-truck" style="color: gray;"></i> ${distributor.shipments.join(', ')}</p>
-                                            <p><i class="fas fa-money-bill-wave" style="color: gray;"></i> COD ${distributor.cod ? 'Tersedia' : 'Tidak ada COD'}</p>
+                                            <p><i class="fas fa-money-bill-wave" style="color: gray;"></i> ${distributor.cod ? 'COD / Cash on Delivery' : 'Tidak ada COD'}</p>
 
                                             <div class="marketplace-icons">
                                                 ${distributor.marketplaces.map(link => `
@@ -437,7 +437,7 @@
                                                     <div class="distributor-card">
                                                         {{-- Card Header --}}
                                                         <div class="card-header d-flex">
-                                                            <img src="https://mganik-assets.pages.dev/assets/placeholder_foto.png"
+                                                            <img src="{{ asset('assets/media/logos/logo-doorasi.png') }}"
                                                                 class="profile-img" alt="Foto Distributor">
                                                             <div class="ms-3">
                                                                 <p class="distributor-name">
@@ -453,7 +453,7 @@
                                                         <div class="card-body">
                                                             <p><i class="fas fa-phone" style="color: gray;"></i> <a href="tel:{{ $distributor->primary_phone }}">{{ $distributor->primary_phone }}</a></p>
                                                             <p><i class="fas fa-truck" style="color: gray;"></i> {{ $distributor->shipments->pluck('name')->join(', ') }}</p>
-                                                            <p><i class="fas fa-money-bill-wave" style="color: gray;"></i> COD {{ $distributor->is_cod ? 'COD Tersedia' : 'Tidak ada COD' }}</p>
+                                                            <p><i class="fas fa-money-bill-wave" style="color: gray;"></i>{{ $distributor->is_cod ? 'COD / Cash on Delivery' : 'Tidak ada COD' }}</p>
                                                             
 
                                                             @if ($distributor->marketplaces && count($distributor->marketplaces))
