@@ -22,9 +22,11 @@
             max-width: 100%;
             height: 100% !important;
         }
+
         li {
             list-style: none;
         }
+
         .distributor-container {
             width: 100%;
             padding: 0;
@@ -43,7 +45,7 @@
             color: #FFF;
             font-size: 1rem;
             font-weight: 600;
-            padding: 12px 16px;
+            padding: 6px 10px;
             border-radius: 8px;
             margin-bottom: 8px;
             display: flex;
@@ -60,11 +62,21 @@
 
         .acnav__list--level2,
         .acnav__list--level3 {
-            padding-left: 0.5rem;
-            margin-bottom: 0.5rem;
+            padding-left: 0rem;
+            margin-bottom: 0rem;
         }
 
         .distributor-card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin: 16px 0;
+            padding: 24px;
+            transition: box-shadow 0.2s ease-in-out;
+            border: 1px solid #f1f1f1;
+        }
+
+        .distributor-card-search {
             background: #ffffff;
             border-radius: 12px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -249,6 +261,7 @@
         }
 
         .distributor-card {
+            margin-left: -20px;
             border: 1px solid #ff4d4d;
             border-radius: 16px;
             margin-bottom: 20px;
@@ -284,11 +297,18 @@
             text-decoration: underline;
             color: #007bff;
             font-size: 14px;
+            margin-bottom: 15px;
+            margin-left: -20px;
+        }
+
+        .card-body{
+            margin-top: -10px;
         }
 
         .card-body p {
             font-size: 14px;
-            margin: 6px 0;
+            display: block;
+            margin-left: -15px;
         }
 
         .marketplace-icons img {
@@ -373,7 +393,7 @@
 
                                 data.distributors.forEach(distributor => {
                                     const card = `
-                                    <div class="distributor-card">
+                                    <div class="distributor-card-search">
                                         <div class="card-header">
                                             <img src="https://doorasi.indobuzz.my.id/assets/media/logos/logo-doorasi.png" class="profile-img" alt="Foto Distributor">
                                             <div>
@@ -389,10 +409,10 @@
 
                                             <div class="marketplace-icons">
                                                 ${distributor.marketplaces.map(link => `
-                                                                                    <a href="${link.pivot.url}" target="_blank">
-                                                                                        <img src="${link.icon}" alt="${link.name}" title="${link.name}">
-                                                                                    </a>
-                                                                                `).join('')}
+                                                                                                    <a href="${link.pivot.url}" target="_blank">
+                                                                                                        <img src="${link.icon}" alt="${link.name}" title="${link.name}">
+                                                                                                    </a>
+                                                                                                `).join('')}
                                             </div>
                                         </div>
                                         <div class="card-footer">
@@ -422,7 +442,7 @@
                 </script>
 
                 <nav class="acnav" id="distributorsAccordion">
-                  
+
                 </nav>
 
             </div>
@@ -430,8 +450,8 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            fetch('https://doorasi.indobuzz.my.id/show-distributors')
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('/show-distributors')
                 .then(response => response.json())
                 .then(data => {
                     const accordionContainer = document.getElementById('distributorsAccordion');
@@ -440,143 +460,158 @@
                             const province = data[provinceName];
                             const provinceItem = document.createElement('li');
                             provinceItem.classList.add('has-children');
-    
+
                             const provinceLabel = document.createElement('div');
                             provinceLabel.classList.add('acnav__label');
                             provinceLabel.innerHTML =
                                 `${provinceName} <i class="fa-solid fa-chevron-down chevron"></i>`;
-                            provinceLabel.onclick = function () {
+                            provinceLabel.onclick = function() {
                                 toggleAccordion(this);
                             };
                             const regencyList = document.createElement('ul');
                             regencyList.classList.add('acnav__list', 'acnav__list--level2');
                             regencyList.style.display = 'none';
-    
+
                             for (let regencyName in province) {
                                 if (province.hasOwnProperty(regencyName)) {
                                     const distributors = province[regencyName];
                                     const regencyItem = document.createElement('li');
                                     regencyItem.classList.add('has-children');
-    
+
                                     const regencyLabel = document.createElement('div');
                                     regencyLabel.classList.add('acnav__label');
                                     regencyLabel.innerHTML =
                                         `${regencyName} <i class="fa-solid fa-chevron-down chevron"></i>`;
-                                    regencyLabel.onclick = function () {
+                                    regencyLabel.onclick = function() {
                                         toggleAccordion(this);
                                     };
                                     const distributorList = document.createElement('ul');
                                     distributorList.classList.add('acnav__list', 'acnav__list--level3');
                                     distributorList.style.display = 'none';
-    
+
                                     distributors.forEach(distributor => {
                                         const distributorItem = document.createElement('li');
                                         const card = document.createElement('div');
                                         card.classList.add('distributor-card');
-    
+
                                         const cardHeader = document.createElement('div');
-                                        cardHeader.classList.add('card-header');
-    
-                                        const infoContainer = document.createElement('div');
-    
-                                        // Kontainer untuk logo dan nama
-                                        const topInfo = document.createElement('div');
-                                        topInfo.classList.add('d-flex', 'align-items-center');
-    
+                                        cardHeader.classList.add('card-header', 'd-flex',
+                                            'align-items-center'
+                                            ); // Added 'align-items-center' for vertical alignment
                                         const profileImg = document.createElement('img');
-                                        profileImg.src = 'https://doorasi.indobuzz.my.id/assets/media/logos/logo-doorasi.png';
+                                        profileImg.src =
+                                            'https://doorasi.indobuzz.my.id/assets/media/logos/logo-doorasi.png';
                                         profileImg.classList.add('profile-img');
-    
+                                        profileImg.style.width =
+                                        '40px'; // Adjust the width of the profile image
+                                        profileImg.style.height =
+                                        '40px'; // Adjust the height of the profile image
+                                        profileImg.style.objectFit =
+                                        'contain'; // Ensure the logo stays proportional
+
+                                        const infoContainer = document.createElement('div');
+                                        infoContainer.classList.add('ms-3'); // Add margin to the left
+
                                         const name = document.createElement('p');
                                         name.classList.add('distributor-name');
                                         name.innerHTML = distributor.full_name;
-    
-                                        topInfo.appendChild(profileImg);
-                                        topInfo.appendChild(name);
-    
+
+                                        infoContainer.appendChild(name);
+                                        cardHeader.appendChild(profileImg);
+                                        cardHeader.appendChild(infoContainer);
+                                        card.appendChild(cardHeader);
+
+                                        const cardBody = document.createElement('div');
+                                        cardBody.classList.add('card-body');
+
+                                        // Address and map link are moved here
                                         const address = document.createElement('p');
                                         address.classList.add('address');
                                         address.innerHTML =
-                                            `${distributor.address}, ${distributor.district.name}, ${distributor.regency.name}, ${distributor.province.name}`;
-    
+                                            `${distributor.address}, ${distributor.district}, ${distributor.regency}, ${distributor.province}`;
+
                                         const mapLink = document.createElement('a');
                                         mapLink.href = distributor.google_maps_url;
                                         mapLink.target = '_blank';
-                                        mapLink.classList.add('map-link', 'btn', 'btn-primary', 'btn-sm', 'text-white');
+                                        mapLink.classList.add('map-link', 'btn', 'btn-primary',
+                                            'btn-sm', 'text-white');
                                         mapLink.style.textDecoration = 'none';
-                                        mapLink.innerHTML = '📍 Peta Google';
-    
-                                        infoContainer.appendChild(topInfo);
-                                        infoContainer.appendChild(address);
-                                        infoContainer.appendChild(mapLink);
-    
-                                        cardHeader.appendChild(infoContainer);
-                                        card.appendChild(cardHeader);
-    
-                                        const cardBody = document.createElement('div');
-                                        cardBody.classList.add('card-body');
-    
+                                        mapLink.innerHTML =
+                                            '<img loading="lazy" class="mr-2" src="https://mganik-assets.pages.dev/assets/pinlocation_googlemaps.svg" alt="pinlocation_googlemaps"> Peta Google';
+
+                                        cardBody.appendChild(address);
+                                        cardBody.appendChild(mapLink);
+
+                                        // Other distributor info
                                         const phone = document.createElement('p');
                                         phone.innerHTML =
-                                            `<i class="fas fa-phone" style="color: gray;"></i> <a href="tel:${distributor.primary_phone}">${distributor.primary_phone}</a>`;
-    
+                                            `<img loading="lazy" alt="phone-icon" class="mr-2" src="https://mganik-assets.pages.dev/assets/phone.svg"> <a href="tel:${distributor.primary_phone}">${distributor.primary_phone}</a>`;
+
                                         const shipments = document.createElement('p');
                                         shipments.innerHTML =
-                                            `<i class="fas fa-truck" style="color: gray;"></i> Kurir Lainnya ${distributor.shipments.map(ship => ship.name).join(' & ')}`;
-    
+                                            `<img loading="lazy" alt="cod-icon" class="mr-2 contact-shipping" src="https://mganik-assets.pages.dev/assets/pengiriman.svg"> Kurir Lainnya ${distributor.shipments.map(ship => ship.name).join(' & ')}`;
+
                                         const cod = document.createElement('p');
                                         cod.innerHTML =
-                                            `<i class="fas fa-money-bill-wave" style="color: gray;"></i> ${distributor.is_cod ? 'COD / Cash on Delivery' : 'Tidak ada COD'}`;
-    
+                                            `<img loading="lazy" alt="cod-icon" class="mr-2 contact-shipping" src="https://mganik-assets.pages.dev/assets/cod.svg"> ${distributor.is_cod ? 'COD / Cash on Delivery' : 'Tidak ada COD'}`;
+
                                         cardBody.appendChild(phone);
                                         cardBody.appendChild(shipments);
                                         cardBody.appendChild(cod);
                                         card.appendChild(cardBody);
-    
-                                        if (distributor.marketplaces && distributor.marketplaces.length) {
+
+                                        if (distributor.marketplaces && distributor.marketplaces
+                                            .length) {
                                             const marketplaceIcons = document.createElement('div');
                                             marketplaceIcons.classList.add('marketplace-icons', 'mt-2');
                                             distributor.marketplaces.forEach(marketplace => {
-                                                const marketplaceLink = document.createElement('a');
+                                                const marketplaceLink = document.createElement(
+                                                    'a');
                                                 marketplaceLink.href = marketplace.url;
                                                 marketplaceLink.target = '_blank';
-    
-                                                const marketplaceImg = document.createElement('img');
-                                                marketplaceImg.src = `https://doorasi.indobuzz.my.id/storage/icons/${marketplace.icon}`;
+
+                                                const marketplaceImg = document.createElement(
+                                                    'img');
+                                                marketplaceImg.src =
+                                                    `https://doorasi.indobuzz.my.id/storage/icons/${marketplace.icon}`;
                                                 marketplaceImg.alt = marketplace.name;
                                                 marketplaceImg.title = marketplace.name;
-    
+
                                                 marketplaceLink.appendChild(marketplaceImg);
                                                 marketplaceIcons.appendChild(marketplaceLink);
                                             });
                                             card.appendChild(marketplaceIcons);
                                         }
-    
+
                                         const cardFooter = document.createElement('div');
                                         cardFooter.classList.add('card-footer', 'mt-3');
                                         const waButton = document.createElement('button');
                                         waButton.classList.add('btn-wa');
-                                        waButton.onclick = function () {
-                                            directToWA(distributor.primary_phone, 'Halo, saya tertarik untuk membeli produk Doorasi. Bisa bantu?');
+                                        waButton.onclick = function() {
+                                            directToWA(distributor.primary_phone,
+                                                'Halo, saya tertarik untuk membeli produk Doorasi. Bisa bantu?'
+                                            );
                                         };
                                         const waIcon = document.createElement('img');
-                                        waIcon.src = "https://mganik-assets.pages.dev/assets/whatsapp.png";
+                                        waIcon.src =
+                                            "https://mganik-assets.pages.dev/assets/whatsapp.png";
                                         waIcon.alt = "WhatsApp";
                                         waButton.appendChild(waIcon);
                                         waButton.appendChild(document.createTextNode('BELI DISINI'));
                                         cardFooter.appendChild(waButton);
                                         card.appendChild(cardFooter);
-    
+
                                         distributorItem.appendChild(card);
                                         distributorList.appendChild(distributorItem);
                                     });
-    
+
                                     regencyItem.appendChild(regencyLabel);
                                     regencyItem.appendChild(distributorList);
                                     regencyList.appendChild(regencyItem);
                                 }
                             }
-    
+
+
                             provinceItem.appendChild(provinceLabel);
                             provinceItem.appendChild(regencyList);
                             accordionContainer.appendChild(provinceItem);
@@ -587,7 +622,7 @@
                     console.error('Error fetching data:', error);
                 });
         });
-    
+
         function toggleAccordion(element) {
             const siblingList = element.nextElementSibling;
             const chevron = element.querySelector('.chevron');
@@ -599,13 +634,13 @@
                 chevron.classList.remove('rotate');
             }
         }
-    
+
+
         function directToWA(phone, text) {
             const encodedText = encodeURIComponent(text);
             window.open(`https://wa.me/${phone}?text=${encodedText}`, '_blank');
         }
     </script>
-    
 </body>
 
 </html>
