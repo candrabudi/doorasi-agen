@@ -15,10 +15,6 @@
 
 <body style="background: #000000">
     <style>
-        li {
-            list-style: none;
-        }
-
         .distributor-container {
             width: 100%;
             padding: 0;
@@ -316,8 +312,6 @@
     <div class="distributor-container">
         <div class="card border-0 bg-transparent">
             <div class="card-body">
-
-                <!-- SEARCH BAR -->
                 <section class="search-section">
                     <p class="label" style="color: #FFF;">Cari Kota/Kecamatan</p>
                     <div class="search-wrapper">
@@ -385,10 +379,10 @@
 
                                             <div class="marketplace-icons">
                                                 ${distributor.marketplaces.map(link => `
-                                                                    <a href="${link.pivot.url}" target="_blank">
-                                                                        <img src="${link.icon}" alt="${link.name}" title="${link.name}">
-                                                                    </a>
-                                                                `).join('')}
+                                                                                    <a href="${link.pivot.url}" target="_blank">
+                                                                                        <img src="${link.icon}" alt="${link.name}" title="${link.name}">
+                                                                                    </a>
+                                                                                `).join('')}
                                             </div>
                                         </div>
                                         <div class="card-footer">
@@ -417,77 +411,8 @@
                     }
                 </script>
 
-                <nav class="acnav">
-                    @foreach ($distributorsByRegion as $provinceName => $regencies)
-                        <li class="has-children">
-                            <div class="acnav__label" onclick="toggleAccordion(this)">
-                                {{ $provinceName }}
-                                <i class="fa-solid fa-chevron-down chevron"></i>
-                            </div>
-                            <ul class="acnav__list acnav__list--level2" style="display: none;">
-                                @foreach ($regencies as $regencyName => $distributors)
-                                    <li class="has-children">
-                                        <div class="acnav__label" onclick="toggleAccordion(this)">
-                                            {{ $regencyName }}
-                                            <i class="fa-solid fa-chevron-down chevron"></i>
-                                        </div>
-                                        <ul class="acnav__list acnav__list--level3" style="display: none;">
-                                            @foreach ($distributors as $distributor)
-                                                <li>
-                                                    <div class="distributor-card">
-                                                        {{-- Card Header --}}
-                                                        <div class="card-header d-flex">
-                                                            <img src="{{ asset('assets/media/logos/logo-doorasi.png') }}"
-                                                                class="profile-img" alt="Foto Distributor">
-                                                            <div class="ms-3">
-                                                                <p class="distributor-name">
-                                                                    {{ $distributor->full_name }}</p>
-                                                                    <p class="address">{{ $distributor->address }}, {{ $distributor->district->name }}, {{ $distributor->regency->name }}, {{ $distributor->province->name }}</p>
-
-                                                                <a href="{{ $distributor->google_maps_url }}"
-                                                                    target="_blank" class="map-link btn btn-primary btn-sm text-white" style="text-decoration: none;">📍 Lihat di Google
-                                                                    Maps</a>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="card-body">
-                                                            <p><i class="fas fa-phone" style="color: gray;"></i> <a href="tel:{{ $distributor->primary_phone }}">{{ $distributor->primary_phone }}</a></p>
-                                                            <p><i class="fas fa-truck" style="color: gray;"></i> Kurir Lainnya {{ $distributor->shipments->pluck('name')->join(' & ') }}</p>
-                                                            <p><i class="fas fa-money-bill-wave" style="color: gray;"></i> {{ $distributor->is_cod ? 'COD / Cash on Delivery' : 'Tidak ada COD' }}</p>
-                                                            
-
-                                                            @if ($distributor->marketplaces && count($distributor->marketplaces))
-                                                                <div class="marketplace-icons mt-2">
-                                                                    @foreach ($distributor->marketplaces as $marketplace)
-                                                                        <a href="{{ $marketplace->url }}"
-                                                                            target="_blank">
-                                                                            <img src="{{ asset('storage/icons/' . $marketplace->icon) }}"
-                                                                                alt="{{ $marketplace->name }}"
-                                                                                title="{{ $marketplace->name }}">
-                                                                        </a>
-                                                                    @endforeach
-                                                                </div>
-                                                            @endif
-                                                        </div>
-                                                        <div class="card-footer mt-3">
-                                                            <button
-                                                                onclick="directToWA('{{ $distributor->primary_phone }}', 'Halo, saya tertarik untuk membeli produk Doorasi. Bisa bantu?')"
-                                                                class="btn-wa">
-                                                                <img src="https://mganik-assets.pages.dev/assets/whatsapp.png"
-                                                                    alt="WhatsApp">
-                                                                BELI DISINI
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            @endforeach
-
-                                        </ul>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </li>
-                    @endforeach
+                <nav class="acnav" id="distributorsAccordion">
+                  
                 </nav>
 
             </div>
@@ -496,18 +421,177 @@
 
 
     <script>
-        function toggleAccordion(element) {
-            const chevron = element.querySelector('.chevron');
-            const nextUl = element.nextElementSibling;
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('/show-distributors')
+                .then(response => response.json())
+                .then(data => {
+                    const accordionContainer = document.getElementById('distributorsAccordion');
+                    for (let provinceName in data) {
+                        if (data.hasOwnProperty(provinceName)) {
+                            const province = data[provinceName];
+                            const provinceItem = document.createElement('li');
+                            provinceItem.classList.add('has-children');
 
-            if (nextUl.style.display === 'block') {
-                nextUl.style.display = 'none';
-                chevron?.classList.remove('rotate');
+                            const provinceLabel = document.createElement('div');
+                            provinceLabel.classList.add('acnav__label');
+                            provinceLabel.innerHTML =
+                                `${provinceName} <i class="fa-solid fa-chevron-down chevron"></i>`;
+                            provinceLabel.onclick = function() {
+                                toggleAccordion(this);
+                            };
+                            const regencyList = document.createElement('ul');
+                            regencyList.classList.add('acnav__list', 'acnav__list--level2');
+                            regencyList.style.display = 'none';
+
+                            for (let regencyName in province) {
+                                if (province.hasOwnProperty(regencyName)) {
+                                    const distributors = province[regencyName];
+                                    const regencyItem = document.createElement('li');
+                                    regencyItem.classList.add('has-children');
+
+                                    const regencyLabel = document.createElement('div');
+                                    regencyLabel.classList.add('acnav__label');
+                                    regencyLabel.innerHTML =
+                                        `${regencyName} <i class="fa-solid fa-chevron-down chevron"></i>`;
+                                    regencyLabel.onclick = function() {
+                                        toggleAccordion(this);
+                                    };
+                                    const distributorList = document.createElement('ul');
+                                    distributorList.classList.add('acnav__list', 'acnav__list--level3');
+                                    distributorList.style.display = 'none';
+
+                                    distributors.forEach(distributor => {
+                                        const distributorItem = document.createElement('li');
+                                        const card = document.createElement('div');
+                                        card.classList.add('distributor-card');
+
+                                        const cardHeader = document.createElement('div');
+                                        cardHeader.classList.add('card-header', 'd-flex');
+                                        const profileImg = document.createElement('img');
+                                        profileImg.src =
+                                        '/assets/media/logos/logo-doorasi.png';
+                                        profileImg.classList.add('profile-img');
+                                        const infoContainer = document.createElement('div');
+                                        infoContainer.classList.add('ms-3');
+
+                                        const name = document.createElement('p');
+                                        name.classList.add('distributor-name');
+                                        name.innerHTML = distributor.full_name;
+
+                                        const address = document.createElement('p');
+                                        address.classList.add('address');
+                                        address.innerHTML =
+                                            `${distributor.address}, ${distributor.district.name}, ${distributor.regency.name}, ${distributor.province.name}`;
+
+                                        const mapLink = document.createElement('a');
+                                        mapLink.href = distributor.google_maps_url;
+                                        mapLink.target = '_blank';
+                                        mapLink.classList.add('map-link', 'btn', 'btn-primary',
+                                            'btn-sm', 'text-white');
+                                        mapLink.style.textDecoration = 'none';
+                                        mapLink.innerHTML = '📍 Lihat di Google Maps';
+
+                                        infoContainer.appendChild(name);
+                                        infoContainer.appendChild(address);
+                                        infoContainer.appendChild(mapLink);
+
+                                        cardHeader.appendChild(profileImg);
+                                        cardHeader.appendChild(infoContainer);
+                                        card.appendChild(cardHeader);
+                                        const cardBody = document.createElement('div');
+                                        cardBody.classList.add('card-body');
+
+                                        const phone = document.createElement('p');
+                                        phone.innerHTML =
+                                            `<i class="fas fa-phone" style="color: gray;"></i> <a href="tel:${distributor.primary_phone}">${distributor.primary_phone}</a>`;
+
+                                        const shipments = document.createElement('p');
+                                        shipments.innerHTML =
+                                            `<i class="fas fa-truck" style="color: gray;"></i> Kurir Lainnya ${distributor.shipments.map(ship => ship.name).join(' & ')}`;
+
+                                        const cod = document.createElement('p');
+                                        cod.innerHTML =
+                                            `<i class="fas fa-money-bill-wave" style="color: gray;"></i> ${distributor.is_cod ? 'COD / Cash on Delivery' : 'Tidak ada COD'}`;
+
+                                        cardBody.appendChild(phone);
+                                        cardBody.appendChild(shipments);
+                                        cardBody.appendChild(cod);
+                                        card.appendChild(cardBody);
+
+                                        if (distributor.marketplaces && distributor.marketplaces
+                                            .length) {
+                                            const marketplaceIcons = document.createElement('div');
+                                            marketplaceIcons.classList.add('marketplace-icons', 'mt-2');
+                                            distributor.marketplaces.forEach(marketplace => {
+                                                const marketplaceLink = document.createElement(
+                                                    'a');
+                                                marketplaceLink.href = marketplace.url;
+                                                marketplaceLink.target = '_blank';
+
+                                                const marketplaceImg = document.createElement(
+                                                    'img');
+                                                marketplaceImg.src =
+                                                    `/storage/icons/${marketplace.icon}`;
+                                                marketplaceImg.alt = marketplace.name;
+                                                marketplaceImg.title = marketplace.name;
+
+                                                marketplaceLink.appendChild(marketplaceImg);
+                                                marketplaceIcons.appendChild(marketplaceLink);
+                                            });
+                                            card.appendChild(marketplaceIcons);
+                                        }
+
+                                        const cardFooter = document.createElement('div');
+                                        cardFooter.classList.add('card-footer', 'mt-3');
+                                        const waButton = document.createElement('button');
+                                        waButton.classList.add('btn-wa');
+                                        waButton.onclick = function() {
+                                            directToWA(distributor.primary_phone,
+                                                'Halo, saya tertarik untuk membeli produk Doorasi. Bisa bantu?'
+                                                );
+                                        };
+                                        const waIcon = document.createElement('img');
+                                        waIcon.src =
+                                            "https://mganik-assets.pages.dev/assets/whatsapp.png";
+                                        waIcon.alt = "WhatsApp";
+                                        waButton.appendChild(waIcon);
+                                        waButton.appendChild(document.createTextNode('BELI DISINI'));
+                                        cardFooter.appendChild(waButton);
+                                        card.appendChild(cardFooter);
+
+                                        distributorItem.appendChild(card);
+                                        distributorList.appendChild(distributorItem);
+                                    });
+
+                                    regencyItem.appendChild(regencyLabel);
+                                    regencyItem.appendChild(distributorList);
+                                    regencyList.appendChild(regencyItem);
+                                }
+                            }
+
+                            provinceItem.appendChild(provinceLabel);
+                            provinceItem.appendChild(regencyList);
+                            accordionContainer.appendChild(provinceItem);
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        });
+
+        function toggleAccordion(element) {
+            const siblingList = element.nextElementSibling;
+            const chevron = element.querySelector('.chevron');
+            if (siblingList.style.display === 'none') {
+                siblingList.style.display = 'block';
+                chevron.classList.add('rotate');
             } else {
-                nextUl.style.display = 'block';
-                chevron?.classList.add('rotate');
+                siblingList.style.display = 'none';
+                chevron.classList.remove('rotate');
             }
         }
+
 
         function directToWA(phone, text) {
             const encodedText = encodeURIComponent(text);
