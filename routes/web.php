@@ -8,16 +8,18 @@ use App\Http\Controllers\MarketPlaceController;
 use App\Http\Controllers\ShipmentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\CorsMiddleware;
 
 Route::get('/login', [AuthController::class, 'pageLogin'])->name('login');
 Route::post('/login/process', [AuthController::class, 'login'])->name('login.process');
 
 
-Route::get('/accordian', [Accordiancontroller::class, 'showDistributors']);
-Route::get('/search-regions', [Accordiancontroller::class, 'searchRegions']);
-Route::get('/get-distributors', [Accordiancontroller::class, 'getDistributorsByRegion']);
-Route::get('/list-of-area', [AreaController::class, 'listOfArea']);
-
+Route::middleware([CorsMiddleware::class])->group(function () {
+    Route::get('/accordian', [AccordianController::class, 'showDistributors']);
+    Route::get('/search-regions', [AccordianController::class, 'searchRegions']);
+    Route::get('/get-distributors', [AccordianController::class, 'getDistributorsByRegion']);
+    Route::get('/list-of-area', [AreaController::class, 'listOfArea']);
+});
 
 // Protected routes with auth middleware
 Route::middleware(['auth'])->group(function () {
