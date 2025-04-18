@@ -70,7 +70,7 @@ class Accordiancontroller extends Controller
                             'marketplaces' => $distributor->marketplaces->map(function($marketplace) {
                                 return [
                                     'name' => $marketplace->name,
-                                    'url' => $marketplace->url,
+                                    'pivot' => $marketplace->pivot,
                                     'icon' => $marketplace->icon
                                 ];
                             })->toArray(),

@@ -567,7 +567,7 @@
                                             distributor.marketplaces.forEach(marketplace => {
                                                 const marketplaceLink = document.createElement(
                                                     'a');
-                                                marketplaceLink.href = marketplace.url;
+                                                marketplaceLink.href = marketplace.pivot.url;
                                                 marketplaceLink.target = '_blank';
 
                                                 const marketplaceImg = document.createElement(
