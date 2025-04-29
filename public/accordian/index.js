@@ -144,7 +144,7 @@ class DistributorSearch {
         const address = document.createElement('p');
         address.className = 'address';
         address.textContent = distributor.address 
-            ? `${distributor.address}, ${distributor.district.name}, ${distributor.regency}, ${distributor.province}`
+            ? `${distributor.address}, ${distributor.district}, ${distributor.regency}, ${distributor.province}`
             : `${distributor.address}, ${distributor.district}, ${distributor.regency}, ${distributor.province}`;
 
         const googleMaps = document.createElement('p');
