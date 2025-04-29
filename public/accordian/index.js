@@ -100,18 +100,14 @@ class DistributorSearch {
         const card = document.createElement('div');
         card.className = isSearch ? 'distributor-card-search' : 'distributor-card';
 
-        // Card Header
         card.appendChild(this.createCardHeader(distributor));
 
-        // Card Body
         card.appendChild(this.createCardBody(distributor));
 
-        // Marketplace Icons
         if (distributor.marketplaces?.length) {
             card.appendChild(this.createMarketplaceIcons(distributor.marketplaces));
         }
 
-        // Card Footer
         card.appendChild(this.createCardFooter(distributor));
 
         return card;
@@ -148,7 +144,7 @@ class DistributorSearch {
         const address = document.createElement('p');
         address.className = 'address';
         address.textContent = distributor.address 
-            ? `${distributor.address}, ${distributor.district.name}, ${distributor.regency.name}, ${distributor.province.name}`
+            ? `${distributor.address}, ${distributor.district.name}, ${distributor.regency}, ${distributor.province}`
             : `${distributor.address}, ${distributor.district}, ${distributor.regency}, ${distributor.province}`;
 
         const googleMaps = document.createElement('p');

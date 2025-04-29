@@ -1,1 +1,30 @@
-<script src="http://localhost:8888/accordian/accordian.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+    integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="http://localhost:8888/accordian/index.css">
+<div class="distributor-container">
+    <div class="card border-0 bg-transparent">
+        <div class="card-body">
+            <section class="search-section">
+                <p class="label" style="color: #FFF;">Cari Kota/Kecamatan</p>
+                <div class="search-wrapper">
+                    <input type="text" class="search-input" placeholder="Cari lokasi..."
+                        oninput="handleChange(this.value)" id="input-field">
+                    <img src="https://mganik-assets.pages.dev/assets/clear.svg" alt="clear" class="icon clear"
+                        onclick="clearField()">
+                    <div class="dot-flashing" id="loading" style="display: none;"></div>
+                </div>
+            </section>
+            <div id="result-container" class="result-container" style="display: block;"></div>
+            <div id="search-result-container" class="card-wrapper" style="display: block;"></div>
+
+            <nav class="acnav" id="distributorsAccordion">
+
+            </nav>
+
+        </div>
+    </div>
+</div>
+
+<script src="http://localhost:8888/accordian/index.js"></script>
