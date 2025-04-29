@@ -142,6 +142,7 @@ class DistributorSearch {
         body.className = 'card-body';
 
         const address = document.createElement('p');
+        console.log(distributor);
         address.className = 'address';
         address.textContent = distributor.address 
             ? `${distributor.address}, ${distributor.district}, ${distributor.regency}, ${distributor.province}`
