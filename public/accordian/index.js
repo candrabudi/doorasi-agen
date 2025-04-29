@@ -97,6 +97,7 @@ class DistributorSearch {
     }
 
     createDistributorCard(distributor, isSearch = false) {
+        console.log(distributor);
         const card = document.createElement('div');
         card.className = isSearch ? 'distributor-card-search' : 'distributor-card';
 
