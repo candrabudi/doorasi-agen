@@ -35,13 +35,11 @@ class Accordiancontroller extends Controller
 
     public function listDistributors()
     {
-        // Fetch provinces with related regencies, distributors, and other nested data
         $provinces = Province::with([
             'regencies.distributors.shipments', 
             'regencies.distributors.district'
         ])->get();
 
-        // Prepare the data structure to send back as JSON
         $distributorsByRegion = [];
 
         foreach ($provinces as $province) {
@@ -80,7 +78,6 @@ class Accordiancontroller extends Controller
             }
         }
 
-        // Return the data as JSON
         return response()->json($distributorsByRegion);
     }
 

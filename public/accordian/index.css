@@ -1,0 +1,326 @@
+.card-header img {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    max-width: 100%;
+    height: 100% !important;
+}
+
+li {
+    list-style: none;
+}
+
+.distributor-container {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.opt-location {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.acnav__label {
+    background-color: #ff4d4d;
+    color: #FFF;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    border: 1px solid #ffb8b8;
+    transition: background-color 0.2s ease;
+}
+
+.acnav__label:hover {
+    background-color: #ff3838;
+}
+
+.acnav__list--level2,
+.acnav__list--level3 {
+    padding-left: 0rem;
+    margin-bottom: 0rem;
+}
+
+.distributor-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin: 16px 0;
+    padding: 24px;
+    transition: box-shadow 0.2s ease-in-out;
+    border: 1px solid #f1f1f1;
+}
+
+.distributor-card-search {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin: 16px 0;
+    padding: 24px;
+    transition: box-shadow 0.2s ease-in-out;
+    border: 1px solid #f1f1f1;
+}
+
+.distributor-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.distributor-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1c1e21;
+    margin-bottom: 6px;
+}
+
+.address,
+.contact-shipping {
+    font-size: 0.95rem;
+    color: #606770;
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+
+.contact-shipping a {
+    color: #1877f2;
+    text-decoration: none;
+}
+
+.contact-shipping a:hover {
+    text-decoration: underline;
+}
+
+.btn-whatsapp {
+    display: flex;
+    align-items: center;
+    background-color: #25D366;
+    color: #fff;
+    border-radius: 9999px;
+    padding: 10px 18px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-whatsapp img {
+    height: 18px;
+    margin-right: 8px;
+}
+
+.btn-whatsapp:hover {
+    background-color: #128C7E;
+}
+
+.chevron {
+    transition: transform 0.3s ease;
+}
+
+.rotate {
+    transform: rotate(180deg);
+}
+
+@media (max-width: 768px) {
+    .distributor-card {
+        padding: 16px;
+    }
+
+    .btn-whatsapp {
+        font-size: 0.85rem;
+        padding: 8px 14px;
+    }
+
+    .distributor-name {
+        font-size: 1rem;
+    }
+
+    .distributor-container {
+        /* padding: 0 12px; */
+    }
+}
+
+.marketplace-links {
+    margin-top: 12px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.marketplace-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #f0f2f5;
+    border-radius: 9999px;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    color: #050505;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    transition: background-color 0.2s ease;
+}
+
+.marketplace-links a:hover {
+    background-color: #e4e6eb;
+}
+
+.search-section {
+    max-width: 700px;
+    margin: 0 auto 2rem;
+}
+
+
+.label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.search-wrapper {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    padding: 8px 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 8px;
+    font-size: 14px;
+    background: transparent;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.clear {
+    margin-left: 8px;
+}
+
+.result-container {
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    border: 1px solid #ff4d4d;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.result-item {
+    padding: 12px 16px;
+    background: white;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    color: #ff4d4d;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.result-item:hover {
+    background: #fff5da;
+}
+
+.card-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.distributor-card {
+    margin-left: -20px;
+    border: 1px solid #ff4d4d;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    padding: 16px;
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+.card-header {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.profile-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.distributor-name {
+    font-weight: bold;
+    margin: 0;
+}
+
+.address {
+    font-size: 14px;
+    color: #666;
+}
+
+.map-link {
+    text-decoration: underline;
+    color: #007bff;
+    font-size: 14px;
+    margin-bottom: 15px;
+    margin-left: -20px;
+}
+
+.card-body {
+    margin-top: -10px;
+}
+
+.card-body p {
+    font-size: 14px;
+    display: block;
+    margin-left: -15px;
+}
+
+.marketplace-icons {
+    margin-top: -15px;
+}
+
+.marketplace-icons img {
+    width: 32px;
+    margin-right: 8px;
+}
+
+.card-footer {
+    margin-top: 10px;
+    text-align: right;
+}
+
+.btn-wa {
+    background-color: #25d366;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.btn-wa img {
+    width: 20px;
+}

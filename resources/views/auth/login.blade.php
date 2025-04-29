@@ -2,37 +2,14 @@
 <html lang="en">
 
 <head>
-    <title>Ceres HTML Pro - Bootstrap 5 HTML Multipurpose Admin Dashboard Theme</title>
+    <title>Login | Agen Doorasi</title>
     <meta charset="utf-8" />
-    <meta name="description" content="Ceres admin dashboard live demo. Check out all the features of the admin panel." />
-    <meta name="keywords"
-        content="Ceres theme, bootstrap, bootstrap 5, admin themes, free admin themes, bootstrap admin, bootstrap dashboard" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="Ceres HTML Pro - Bootstrap 5 HTML Multipurpose Admin Dashboard Theme" />
-    <meta property="og:url" content="https://keenthemes.com/products/ceres-html-pro" />
-    <meta property="og:site_name" content="Ceres HTML Pro by Keenthemes" />
-    <link rel="canonical" href="basic.html" />
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37564768-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'UA-37564768-1');
-    </script>
-    <script>
-        if (window.top != window.self) {
-            window.top.location.replace(window.self.location.href);
-        }
-    </script>
 </head>
 
 <body id="kt_body" class="auth-bg">
@@ -127,7 +104,6 @@
     </script>
     <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
-    {{-- <script src="{{ asset('assets/js/custom/authentication/sign-in/general.js') }}"></script> --}}
 </body>
 
 </html>

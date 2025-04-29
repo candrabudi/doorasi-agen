@@ -30,7 +30,9 @@ class Regency extends Model
 
     public function distributors()
     {
-        return $this->hasMany(Distributor::class);
+        return $this->hasMany(Distributor::class)
+            ->join('users', 'users.id', '=', 'distributors.user_id')
+            ->where('status', 1);
     }
 
 }

@@ -13,6 +13,7 @@ use Illuminate\Support\FacadesDB;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class DistributorController extends Controller
 {
@@ -129,7 +130,6 @@ class DistributorController extends Controller
 
             return redirect()->route('distributors.index')->with('success', 'User and distributor profile created successfully!');
         } catch (\Exception $e) {
-            return $e->getMessage();
             DB::rollBack();
             return redirect()->back()->withErrors(['error' => 'There was an error creating the user or distributor profile.']);
         }
@@ -146,13 +146,11 @@ class DistributorController extends Controller
             'province_id' => 'required|exists:provinces,id',
             'regency_id' => 'required',
             'district_id' => 'required',
-            // 'village_id' => 'required',
         ]);
 
         $distributor->update([
             'full_name' => $request->full_name,
             'primary_phone' => $request->primary_phone,
-            // 'secondary_phone' => $request->secondary_phone,
             'distributor_email' => $request->distributor_email,
             'agent_code' => $request->agent_code,
             'google_maps_url' => $request->google_maps_url,
@@ -162,7 +160,6 @@ class DistributorController extends Controller
             'province_id' => $request->province_id,
             'regency_id' => $request->regency_id,
             'district_id' => $request->district_id,
-            // 'village_id' => $request->village_id,
         ]);
 
         if($request->shipping_methods) {
@@ -206,7 +203,7 @@ class DistributorController extends Controller
 
         } catch (Exception $e) {
             DB::rollBack();
-            \Log::error('Error deleting distributor: ' . $e->getMessage());
+            Log::error('Error deleting distributor: ' . $e->getMessage());
 
             return back()->withErrors(['error' => 'Terjadi kesalahan saat menghapus data distributor. Silakan coba lagi.']);
         }

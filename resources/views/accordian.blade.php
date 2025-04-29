@@ -301,7 +301,7 @@
             margin-left: -20px;
         }
 
-        .card-body{
+        .card-body {
             margin-top: -10px;
         }
 
@@ -309,6 +309,10 @@
             font-size: 14px;
             display: block;
             margin-left: -15px;
+        }
+
+        .marketplace-icons {
+            margin-top: -15px;
         }
 
         .marketplace-icons img {
@@ -355,92 +359,6 @@
                 <div id="result-container" class="result-container" style="display: block;"></div>
                 <div id="search-result-container" class="card-wrapper" style="display: block;"></div>
 
-                <script>
-                    function handleChange(value) {
-                        const loading = document.getElementById('loading');
-                        const resultContainer = document.getElementById('result-container');
-                        loading.style.display = 'inline-block';
-
-                        fetch(`https://doorasi.indobuzz.my.id/search-regions?keyword=${encodeURIComponent(value)}`)
-                            .then(res => res.json())
-                            .then(data => {
-                                loading.style.display = 'none';
-                                resultContainer.innerHTML = '';
-
-                                data.regions.forEach(region => {
-                                    const div = document.createElement('div');
-                                    div.className = 'result-item';
-                                    div.setAttribute('onclick', `handleOptionClick('${region.id}', '${region.label}')`);
-                                    div.textContent = region.label;
-                                    resultContainer.appendChild(div);
-                                });
-                            });
-                    }
-
-                    function handleOptionClick(regionId, label) {
-                        const resultContainer = document.getElementById('search-result-container');
-                        resultContainer.innerHTML = '<p>Loading distributor...</p>';
-
-                        fetch(`https://doorasi.indobuzz.my.id/get-distributors?region=${encodeURIComponent(label)}`)
-                            .then(res => res.json())
-                            .then(data => {
-                                resultContainer.innerHTML = '';
-
-                                if (data.distributors.length === 0) {
-                                    resultContainer.innerHTML = '<p>Tidak ada distributor di wilayah ini.</p>';
-                                    return;
-                                }
-
-                                data.distributors.forEach(distributor => {
-                                    const card = `
-                                    <div class="distributor-card-search">
-                                        <div class="card-header">
-                                            <img src="https://doorasi.indobuzz.my.id/assets/media/logos/logo-doorasi.png" class="profile-img" alt="Foto Distributor">
-                                            <div>
-                                                <p class="distributor-name">${distributor.name}</p>
-                                                <p class="address">${distributor.address}, ${distributor.district.name}, ${distributor.regency.name}, ${distributor.province.name}</p>
-                                                <a href="${distributor.maps_url}" target="_blank" class="map-link btn btn-primary btn-sm text-white" style="text-decoration: none;">📍 Peta Google</a>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <p><i class="fas fa-phone" style="color: gray;"></i> <a href="tel:${distributor.phone}">${distributor.phone}</a></p>
-                                            <p><i class="fas fa-truck" style="color: gray;"></i> Kurir Lainnya ${distributor.shipments.join(' & ')}</p>
-                                            <p><i class="fas fa-money-bill-wave" style="color: gray;"></i> ${distributor.cod ? 'COD / Cash on Delivery' : 'Tidak ada COD'}</p>
-
-                                            <div class="marketplace-icons">
-                                                ${distributor.marketplaces.map(link => `
-                                                                                                    <a href="${link.pivot.url}" target="_blank">
-                                                                                                        <img src="${link.icon}" alt="${link.name}" title="${link.name}">
-                                                                                                    </a>
-                                                                                                `).join('')}
-                                            </div>
-                                        </div>
-                                        <div class="card-footer">
-                                            <button onclick="directToWA('${distributor.phone}', 'Halo saya dari website Doorasi...')" class="btn-wa">
-                                                <img src="https://mganik-assets.pages.dev/assets/whatsapp.png" alt="WhatsApp">
-                                                BELI DISINI
-                                            </button>
-                                        </div>
-                                    </div>
-                                `;
-                                    resultContainer.innerHTML += card;
-                                });
-                            });
-                    }
-
-
-                    function clearField() {
-                        document.getElementById('input-field').value = '';
-                        document.getElementById('result-container').innerHTML = '';
-                        document.getElementById('search-result-container').innerHTML = '';
-                    }
-
-                    function directToWA(phone, message) {
-                        const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-                        window.open(url, '_blank');
-                    }
-                </script>
-
                 <nav class="acnav" id="distributorsAccordion">
 
                 </nav>
@@ -450,8 +368,172 @@
     </div>
 
     <script>
+        function handleChange(value) {
+            const loading = document.getElementById('loading');
+            const resultContainer = document.getElementById('result-container');
+            loading.style.display = 'inline-block';
+
+            fetch(`https://agen-doorasi.com/search-regions?keyword=${encodeURIComponent(value)}`)
+                .then(res => res.json())
+                .then(data => {
+                    loading.style.display = 'none';
+                    resultContainer.innerHTML = '';
+
+                    data.regions.forEach(region => {
+                        const div = document.createElement('div');
+                        div.className = 'result-item';
+                        div.setAttribute('onclick', `handleOptionClick('${region.id}', '${region.label}')`);
+                        div.textContent = region.label;
+                        resultContainer.appendChild(div);
+                    });
+                });
+        }
+
+        function handleOptionClick(regionId, label) {
+            const resultContainer = document.getElementById('search-result-container');
+            resultContainer.innerHTML = '<p>Loading distributor...</p>';
+
+            fetch(`https://agen-doorasi.com/get-distributors?region=${encodeURIComponent(label)}`)
+                .then(res => res.json())
+                .then(data => {
+                    resultContainer.innerHTML = '';
+
+                    if (data.distributors.length === 0) {
+                        resultContainer.innerHTML = '<p>Tidak ada distributor di wilayah ini.</p>';
+                        return;
+                    }
+
+                    data.distributors.forEach(distributor => {
+                        const card = document.createElement('div');
+                        card.classList.add('distributor-card');
+
+                        // Card Header
+                        const cardHeader = document.createElement('div');
+                        cardHeader.classList.add('card-header', 'd-flex', 'align-items-center');
+
+                        const profileImg = document.createElement('img');
+                        profileImg.src =
+                            'https://agen-doorasi.com/assets/media/logos/logo-agen-doorasi.png';
+                        profileImg.classList.add('profile-img');
+                        profileImg.style.width = '40px';
+                        profileImg.style.height = '40px';
+                        profileImg.style.objectFit = 'contain';
+
+                        const infoContainer = document.createElement('div');
+                        infoContainer.classList.add('ms-3');
+
+                        const name = document.createElement('p');
+                        name.classList.add('distributor-name');
+                        name.textContent = distributor.name;
+
+                        infoContainer.appendChild(name);
+                        cardHeader.appendChild(profileImg);
+                        cardHeader.appendChild(infoContainer);
+                        card.appendChild(cardHeader);
+
+                        // Card Body
+                        const cardBody = document.createElement('div');
+                        cardBody.classList.add('card-body');
+
+                        const address = document.createElement('p');
+                        address.classList.add('address');
+                        address.textContent =
+                            `${distributor.address}, ${distributor.district.name}, ${distributor.regency.name}, ${distributor.province.name}`;
+
+                        const googleMaps = document.createElement('p');
+                        googleMaps.innerHTML = `
+        <img decoding="async" loading="lazy" class="mr-2" src="https://mganik-assets.pages.dev/assets/pinlocation_googlemaps.svg" alt="pinlocation_googlemaps">
+        <a href="${distributor.maps_url ?? '#'}" target="_blank"> Peta Google</a>
+    `;
+
+                        const phone = document.createElement('p');
+                        phone.innerHTML = `
+        <img decoding="async" loading="lazy" class="mr-2" src="https://mganik-assets.pages.dev/assets/phone.svg" alt="phone-icon">
+        <a href="tel:${distributor.phone}"> ${distributor.phone}</a>
+    `;
+
+                        const shipments = document.createElement('p');
+                        shipments.innerHTML = `
+        <img decoding="async" loading="lazy" class="mr-2 contact-shipping" src="https://mganik-assets.pages.dev/assets/pengiriman.svg" alt="cod-icon">
+        Kurir Lainnya ${distributor.shipments.join(' & ')}
+    `;
+
+                        const cod = document.createElement('p');
+                        cod.innerHTML = `
+        <img decoding="async" loading="lazy" class="mr-2 contact-shipping" src="https://mganik-assets.pages.dev/assets/cod.svg" alt="cod-icon">
+        ${distributor.cod ? 'COD / Cash on Delivery' : 'Tidak ada COD'}
+    `;
+
+                        cardBody.appendChild(address);
+                        cardBody.appendChild(googleMaps);
+                        cardBody.appendChild(phone);
+                        cardBody.appendChild(shipments);
+                        cardBody.appendChild(cod);
+                        card.appendChild(cardBody);
+
+                        if (distributor.marketplaces && distributor.marketplaces.length > 0) {
+                            const marketplaceIcons = document.createElement('div');
+                            marketplaceIcons.classList.add('marketplace-icons');
+
+                            distributor.marketplaces.forEach(link => {
+                                const a = document.createElement('a');
+                                a.href = link.pivot.url;
+                                a.target = '_blank';
+
+                                const img = document.createElement('img');
+                                img.src = `https://agen-doorasi.com/storage/icons/${link.icon}`;
+                                img.alt = link.name;
+                                img.title = link.name;
+
+                                a.appendChild(img);
+                                marketplaceIcons.appendChild(a);
+                            });
+
+                            card.appendChild(marketplaceIcons);
+                        }
+
+                        // Card Footer
+                        const cardFooter = document.createElement('div');
+                        cardFooter.classList.add('card-footer', 'mt-3');
+
+                        const waButton = document.createElement('button');
+                        waButton.classList.add('btn-wa');
+                        waButton.onclick = function() {
+                            directToWA(distributor.phone, 'Halo saya dari website Doorasi...');
+                        };
+
+                        const waIcon = document.createElement('img');
+                        waIcon.src = 'https://mganik-assets.pages.dev/assets/whatsapp.png';
+                        waIcon.alt = 'WhatsApp';
+
+                        waButton.appendChild(waIcon);
+                        waButton.appendChild(document.createTextNode('BELI DISINI'));
+                        cardFooter.appendChild(waButton);
+                        card.appendChild(cardFooter);
+
+                        resultContainer.appendChild(card);
+                    });
+                });
+        }
+
+
+
+
+        function clearField() {
+            document.getElementById('input-field').value = '';
+            document.getElementById('result-container').innerHTML = '';
+            document.getElementById('search-result-container').innerHTML = '';
+        }
+
+        function directToWA(phone, message) {
+            const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
-            fetch('/show-distributors')
+            fetch('https://agen-doorasi.com/show-distributors')
                 .then(response => response.json())
                 .then(data => {
                     const accordionContainer = document.getElementById('distributorsAccordion');
@@ -497,20 +579,20 @@
                                         const cardHeader = document.createElement('div');
                                         cardHeader.classList.add('card-header', 'd-flex',
                                             'align-items-center'
-                                            ); // Added 'align-items-center' for vertical alignment
+                                        );
                                         const profileImg = document.createElement('img');
                                         profileImg.src =
-                                            'https://doorasi.indobuzz.my.id/assets/media/logos/logo-doorasi.png';
+                                            'https://agen-doorasi.com/assets/media/logos/logo-agen-doorasi.png';
                                         profileImg.classList.add('profile-img');
                                         profileImg.style.width =
-                                        '40px'; // Adjust the width of the profile image
+                                            '40px';
                                         profileImg.style.height =
-                                        '40px'; // Adjust the height of the profile image
+                                            '40px';
                                         profileImg.style.objectFit =
-                                        'contain'; // Ensure the logo stays proportional
+                                            'contain';
 
                                         const infoContainer = document.createElement('div');
-                                        infoContainer.classList.add('ms-3'); // Add margin to the left
+                                        infoContainer.classList.add('ms-3');
 
                                         const name = document.createElement('p');
                                         name.classList.add('distributor-name');
@@ -524,28 +606,21 @@
                                         const cardBody = document.createElement('div');
                                         cardBody.classList.add('card-body');
 
-                                        // Address and map link are moved here
                                         const address = document.createElement('p');
                                         address.classList.add('address');
                                         address.innerHTML =
                                             `${distributor.address}, ${distributor.district}, ${distributor.regency}, ${distributor.province}`;
 
-                                        const mapLink = document.createElement('a');
-                                        mapLink.href = distributor.google_maps_url;
-                                        mapLink.target = '_blank';
-                                        mapLink.classList.add('map-link', 'btn', 'btn-primary',
-                                            'btn-sm', 'text-white');
-                                        mapLink.style.textDecoration = 'none';
-                                        mapLink.innerHTML =
-                                            '<img loading="lazy" class="mr-2" src="https://mganik-assets.pages.dev/assets/pinlocation_googlemaps.svg" alt="pinlocation_googlemaps"> Peta Google';
-
                                         cardBody.appendChild(address);
-                                        cardBody.appendChild(mapLink);
 
-                                        // Other distributor info
+                                        const googleMaps = document.createElement('p');
+                                        googleMaps.innerHTML =
+                                            `<img loading="lazy" class="mr-2" src="https://mganik-assets.pages.dev/assets/pinlocation_googlemaps.svg" alt="pinlocation_googlemaps"> <a href="${distributor.google_maps_url}" target="_blank"> Peta Google</a>`;
+
+
                                         const phone = document.createElement('p');
                                         phone.innerHTML =
-                                            `<img loading="lazy" alt="phone-icon" class="mr-2" src="https://mganik-assets.pages.dev/assets/phone.svg"> <a href="tel:${distributor.primary_phone}">${distributor.primary_phone}</a>`;
+                                            `<img loading="lazy" alt="phone-icon" class="mr-2" src="https://mganik-assets.pages.dev/assets/phone.svg"> <a href="tel:${distributor.primary_phone}"> ${distributor.primary_phone}`;
 
                                         const shipments = document.createElement('p');
                                         shipments.innerHTML =
@@ -555,6 +630,7 @@
                                         cod.innerHTML =
                                             `<img loading="lazy" alt="cod-icon" class="mr-2 contact-shipping" src="https://mganik-assets.pages.dev/assets/cod.svg"> ${distributor.is_cod ? 'COD / Cash on Delivery' : 'Tidak ada COD'}`;
 
+                                        cardBody.appendChild(googleMaps);
                                         cardBody.appendChild(phone);
                                         cardBody.appendChild(shipments);
                                         cardBody.appendChild(cod);
@@ -563,7 +639,7 @@
                                         if (distributor.marketplaces && distributor.marketplaces
                                             .length) {
                                             const marketplaceIcons = document.createElement('div');
-                                            marketplaceIcons.classList.add('marketplace-icons', 'mt-2');
+                                            marketplaceIcons.classList.add('marketplace-icons');
                                             distributor.marketplaces.forEach(marketplace => {
                                                 const marketplaceLink = document.createElement(
                                                     'a');
@@ -573,7 +649,7 @@
                                                 const marketplaceImg = document.createElement(
                                                     'img');
                                                 marketplaceImg.src =
-                                                    `https://doorasi.indobuzz.my.id/storage/icons/${marketplace.icon}`;
+                                                    `https://agen-doorasi.com/storage/icons/${marketplace.icon}`;
                                                 marketplaceImg.alt = marketplace.name;
                                                 marketplaceImg.title = marketplace.name;
 
