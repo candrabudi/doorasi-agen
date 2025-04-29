@@ -3,6 +3,8 @@ const ASSET_BASE_URL = 'https://mganik-assets.pages.dev/assets';
 
 class DistributorSearch {
     constructor() {
+        this.loadStylesheets();
+        this.createDOMStructure();
         this.elements = {
             inputField: document.getElementById('input-field'),
             loading: document.getElementById('loading'),
@@ -15,8 +17,105 @@ class DistributorSearch {
         this.loadDistributors();
     }
 
+    loadStylesheets() {
+        const stylesheets = [
+            {
+                href: 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css',
+                integrity: 'sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg==',
+                crossorigin: 'anonymous',
+                referrerpolicy: 'no-referrer'
+            },
+            {
+                href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css'
+            },
+            {
+                href: 'https://agen-doorasi.com/accordian/index.css'
+            }
+        ];
+
+        stylesheets.forEach(sheet => {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = sheet.href;
+            if (sheet.integrity) link.integrity = sheet.integrity;
+            if (sheet.crossorigin) link.crossOrigin = sheet.crossorigin;
+            if (sheet.referrerpolicy) link.referrerPolicy = sheet.referrerpolicy;
+            document.head.appendChild(link);
+        });
+    }
+
+    createDOMStructure() {
+        const container = document.createElement('div');
+        container.classList.add('distributor-container');
+
+        const card = document.createElement('div');
+        card.classList.add('card', 'border-0', 'bg-transparent');
+
+        const cardBody = document.createElement('div');
+        cardBody.classList.add('card-body');
+
+        // Search Section
+        const searchSection = document.createElement('section');
+        searchSection.classList.add('search-section');
+
+        const label = document.createElement('p');
+        label.classList.add('label');
+        label.style.color = '#FFF';
+        label.textContent = 'Cari Kota/Kecamatan';
+
+        const searchWrapper = document.createElement('div');
+        searchWrapper.classList.add('search-wrapper');
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.classList.add('search-input');
+        input.placeholder = 'Cari lokasi...';
+        input.id = 'input-field';
+
+        const clearIcon = document.createElement('img');
+        clearIcon.src = `${ASSET_BASE_URL}/clear.svg`;
+        clearIcon.alt = 'clear';
+        clearIcon.classList.add('icon', 'clear');
+
+        const loading = document.createElement('div');
+        loading.id = 'loading';
+        loading.classList.add('dot-flashing');
+        loading.style.display = 'none';
+
+        searchWrapper.appendChild(input);
+        searchWrapper.appendChild(clearIcon);
+        searchWrapper.appendChild(loading);
+        searchSection.appendChild(label);
+        searchSection.appendChild(searchWrapper);
+
+        // Result Containers
+        const resultContainer = document.createElement('div');
+        resultContainer.id = 'result-container';
+        resultContainer.classList.add('result-container');
+        resultContainer.style.display = 'block';
+
+        const searchResultContainer = document.createElement('div');
+        searchResultContainer.id = 'search-result-container';
+        searchResultContainer.classList.add('card-wrapper');
+        searchResultContainer.style.display = 'block';
+
+        // Accordion
+        const accordion = document.createElement('nav');
+        accordion.classList.add('acnav');
+        accordion.id = 'distributorsAccordion';
+
+        cardBody.appendChild(searchSection);
+        cardBody.appendChild(resultContainer);
+        cardBody.appendChild(searchResultContainer);
+        cardBody.appendChild(accordion);
+        card.appendChild(cardBody);
+        container.appendChild(card);
+        document.body.appendChild(container);
+    }
+
     initEventListeners() {
         this.elements.inputField.addEventListener('input', (e) => this.handleSearch(e.target.value));
+        document.querySelector('.clear').addEventListener('click', () => this.clearField());
     }
 
     async handleSearch(keyword) {
@@ -76,7 +175,7 @@ class DistributorSearch {
         this.elements.resultContainer.innerHTML = '';
         regions.forEach(region => {
             const div = document.createElement('div');
-            div.className = 'result-item';
+            div.classList.add('result-item');
             div.onclick = () => this.handleOptionClick(region.id, region.label);
             div.textContent = region.label;
             this.elements.resultContainer.appendChild(div);
@@ -98,7 +197,7 @@ class DistributorSearch {
 
     createDistributorCard(distributor, isSearch = false) {
         const card = document.createElement('div');
-        card.className = isSearch ? 'distributor-card-search' : 'distributor-card';
+        card.classList.add(isSearch ? 'distributor-card-search' : 'distributor-card');
 
         // Card Header
         card.appendChild(this.createCardHeader(distributor));
@@ -119,20 +218,20 @@ class DistributorSearch {
 
     createCardHeader(distributor) {
         const header = document.createElement('div');
-        header.className = 'card-header d-flex align-items-center';
+        header.classList.add('card-header', 'd-flex', 'align-items-center');
 
         const img = document.createElement('img');
         img.src = `${API_BASE_URL}/assets/media/logos/logo-agen-doorasi.png`;
-        img.className = 'profile-img';
+        img.classList.add('profile-img');
         img.style.width = '40px';
         img.style.height = '40px';
         img.style.objectFit = 'contain';
 
         const info = document.createElement('div');
-        info.className = 'ms-3';
+        info.classList.add('ms-3');
         
         const name = document.createElement('p');
-        name.className = 'distributor-name';
+        name.classList.add('distributor-name');
         name.textContent = distributor.name || distributor.full_name;
 
         info.appendChild(name);
@@ -143,10 +242,10 @@ class DistributorSearch {
 
     createCardBody(distributor) {
         const body = document.createElement('div');
-        body.className = 'card-body';
+        body.classList.add('card-body');
 
         const address = document.createElement('p');
-        address.className = 'address';
+        address.classList.add('address');
         address.textContent = distributor.address 
             ? `${distributor.address}, ${distributor.district.name}, ${distributor.regency.name}, ${distributor.province.name}`
             : `${distributor.address}, ${distributor.district}, ${distributor.regency}, ${distributor.province}`;
@@ -166,14 +265,14 @@ class DistributorSearch {
         const shipments = document.createElement('p');
         const shipmentNames = distributor.shipments?.map(s => typeof s === 'string' ? s : s.name).join(' & ') || '';
         shipments.innerHTML = `
-            <img decoding="async" loading="lazy" class="mr-2 contact-shipping" src="${ASSET_BASE_URL}/pengiriman.svg" alt="cod-icon">
+            <img decoding="async" loading="lazy" class="mr-2" class="contact-shipping" src="${ASSET_BASE_URL}/pengiriman.svg" alt="cod-icon">
             Kurir Lainnya ${shipmentNames}
         `;
 
         const cod = document.createElement('p');
         cod.innerHTML = `
-            <img decoding="async" loading="lazy" class="mr-2 contact-shipping" src="${ASSET_BASE_URL}/cod.svg" alt="cod-icon">
-            ${distributor.cod || distributor.is_cod ?"COD / Cash on Delivery" : "Tidak ada COD"}
+            <img decoding="async" loading="lazy" class="mr-2" class="contact-shipping" src="${ASSET_BASE_URL}/cod.svg" alt="cod-icon">
+            ${distributor.cod || distributor.is_cod ? 'COD / Cash on Delivery' : 'Tidak ada COD'}
         `;
 
         body.appendChild(address);
@@ -186,7 +285,7 @@ class DistributorSearch {
 
     createMarketplaceIcons(marketplaces) {
         const container = document.createElement('div');
-        container.className = 'marketplace-icons';
+        container.classList.add('marketplace-icons');
 
         marketplaces.forEach(link => {
             const a = document.createElement('a');
@@ -207,10 +306,10 @@ class DistributorSearch {
 
     createCardFooter(distributor) {
         const footer = document.createElement('div');
-        footer.className = 'card-footer mt-3';
+        footer.classList.add('card-footer', 'mt-3');
 
         const button = document.createElement('button');
-        button.className = 'btn-wa';
+        button.classList.add('btn-wa');
         button.onclick = () => this.directToWA(
             distributor.phone || distributor.primary_phone,
             distributor.phone 
@@ -231,28 +330,28 @@ class DistributorSearch {
     renderAccordion(data) {
         Object.entries(data).forEach(([provinceName, province]) => {
             const provinceItem = document.createElement('li');
-            provinceItem.className = 'has-children';
+            provinceItem.classList.add('has-children');
 
             const provinceLabel = document.createElement('div');
-            provinceLabel.className = 'acnav__label';
+            provinceLabel.classList.add('acnav__label');
             provinceLabel.innerHTML = `${provinceName} <i class="fa-solid fa-chevron-down chevron"></i>`;
             provinceLabel.onclick = () => this.toggleAccordion(provinceLabel);
 
             const regencyList = document.createElement('ul');
-            regencyList.className = 'acnav__list acnav__list--level2';
+            regencyList.classList.add('acnav__list', 'acnav__list--level2');
             regencyList.style.display = 'none';
 
             Object.entries(province).forEach(([regencyName, distributors]) => {
                 const regencyItem = document.createElement('li');
-                regencyItem.className = 'has-children';
+                regencyItem.classList.add('has-children');
 
                 const regencyLabel = document.createElement('div');
-                regencyLabel.className = 'acnav__label';
+                regencyLabel.classList.add('acnav__label');
                 regencyLabel.innerHTML = `${regencyName} <i class="fa-solid fa-chevron-down chevron"></i>`;
                 regencyLabel.onclick = () => this.toggleAccordion(regencyLabel);
 
                 const distributorList = document.createElement('ul');
-                distributorList.className = 'acnav__list acnav__list--level3';
+                distributorList.classList.add('acnav__list', 'acnav__list--level3');
                 distributorList.style.display = 'none';
 
                 distributors.forEach(distributor => {
