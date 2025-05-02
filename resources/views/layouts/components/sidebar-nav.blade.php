@@ -7,14 +7,12 @@
             <div id="kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false"
                 class="app-sidebar-menu-primary menu menu-column menu-rounded menu-sub-indention menu-state-bullet-primary ps-6 pe-0">
 
-                <!-- Menu Header -->
                 <div class="menu-item mb-2">
                     <div class="menu-heading text-uppercase fs-7 fw-bolder">
                         Menu
                     </div>
                 </div>
 
-                <!-- Dashboard -->
                 <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion ms-n5">
                     <span class="menu-link">
                         <span class="menu-icon">
@@ -34,13 +32,12 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Projects</span>
+                                <span class="menu-title">Data</span>
                             </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Shipments -->
                 <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion ms-n5">
                     <span class="menu-link">
                         <span class="menu-icon">
@@ -51,7 +48,7 @@
                             </svg>
 
                         </span>
-                        <span class="menu-title">Shipments</span>
+                        <span class="menu-title">Pengiriman</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion">
@@ -60,13 +57,18 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Shipment List</span>
+                                <span class="menu-title">Data Pengiriman</span>
+                            </a>
+                            <a class="menu-link" href="{{ route('calculate_shipping_cost.index') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Cek Ongkir</span>
                             </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- MarketPlace -->
                 <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion ms-n5">
                     <span class="menu-link">
                         <span class="menu-icon">
@@ -77,7 +79,7 @@
                             </svg>
 
                         </span>
-                        <span class="menu-title">MarketPlace</span>
+                        <span class="menu-title">Toko Online</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion">
@@ -86,13 +88,12 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Marketplace List</span>
+                                <span class="menu-title">Data Toko Online</span>
                             </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Distributors -->
                 <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion ms-n5">
                     <span class="menu-link">
                         <span class="menu-icon">
@@ -103,7 +104,7 @@
                             </svg>
 
                         </span>
-                        <span class="menu-title">Distributors</span>
+                        <span class="menu-title">Agen</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion">
@@ -112,7 +113,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Distributor List</span>
+                                <span class="menu-title">Data Agen</span>
                             </a>
                         </div>
                     </div>
@@ -129,7 +130,7 @@
                             </svg>
 
                         </span>
-                        <span class="menu-title">Users</span>
+                        <span class="menu-title">Pengguna</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion">
@@ -138,13 +139,12 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Users List</span>
+                                <span class="menu-title">Data Pengguna</span>
                             </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Settings -->
                 <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion ms-n5">
                     <span class="menu-link">
                         <span class="menu-icon">
@@ -157,7 +157,7 @@
                             </svg>
 
                         </span>
-                        <span class="menu-title">Settings</span>
+                        <span class="menu-title">Pengaturan</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion">
@@ -166,14 +166,13 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">General Settings</span>
+                                <span class="menu-title">Pengaturan Website</span>
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Heroicons CDN -->
             <script src="https://cdn.jsdelivr.net/npm/heroicons@1.0.6/outline.min.js"></script>
 
         </div>

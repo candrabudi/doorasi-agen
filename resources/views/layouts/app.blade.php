@@ -3,8 +3,8 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
 <head>
-    <title>Doorasi</title>
-    <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
+    <title>@yield('title') | Doorasi</title>
+    <link rel="shortcut icon" href="{{ asset('assets/media/logos/logo.png') }}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet"
         type="text/css" />
@@ -12,7 +12,6 @@
         type="text/css" />
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <!-- Add Heroicons CDN link in the head of your HTML -->
 <link href="https://cdn.jsdelivr.net/npm/heroicons@1.0.6/outline.min.css" rel="stylesheet">
 
 </head>
@@ -117,18 +116,19 @@
                                         </div>
                                         <div class="d-flex flex-column">
                                             <div class="fw-bold d-flex align-items-center fs-5">
-                                                Max Smith <span
-                                                    class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
+                                                {{ Auth::user()->username }}<span
+                                                    class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Doorasi</span>
                                             </div>
                                             <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">
-                                                max@kt.com </a>
+                                                {{ Auth::user()->email }}    
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="separator my-2"></div>
                                 <div class="menu-item px-5">
                                     <a href="account/overview.html" class="menu-link px-5">
-                                        My Profile
+                                        Profile Saya
                                     </a>
                                 </div>
                                 <div class="separator my-2"></div>
@@ -162,7 +162,7 @@
                                                             class="path9"></span><span class="path10"></span></i>
                                                 </span>
                                                 <span class="menu-title">
-                                                    Light
+                                                    Cerah
                                                 </span>
                                             </a>
                                         </div>
@@ -174,7 +174,7 @@
                                                             class="path1"></span><span class="path2"></span></i>
                                                 </span>
                                                 <span class="menu-title">
-                                                    Dark
+                                                    Gelap
                                                 </span>
                                             </a>
                                         </div>
@@ -187,7 +187,7 @@
                                                             class="path3"></span><span class="path4"></span></i>
                                                 </span>
                                                 <span class="menu-title">
-                                                    System
+                                                    Sistem
                                                 </span>
                                             </a>
                                         </div>
@@ -195,12 +195,12 @@
                                 </div>
                                 <div class="menu-item px-5 my-1">
                                     <a href="account/settings.html" class="menu-link px-5">
-                                        Account Settings
+                                        Pengaturan Akun
                                     </a>
                                 </div>
                                 <div class="menu-item px-5">
                                     <a href="authentication/sign-in/basic.html" class="menu-link px-5">
-                                        Sign Out
+                                        Keluar
                                     </a>
                                 </div>
                             </div>
@@ -233,9 +233,7 @@
                     @include('layouts.components.sidebar-nav')
                 </div>
                 <div class="app-main flex-column flex-row-fluid " id="kt_app_main">
-                    <!--begin::Content wrapper-->
                     <div class="d-flex flex-column flex-column-fluid">
-                        <!--begin::Toolbar-->
                         @yield('toolbar')
                         <div id="kt_app_content" class="app-content  flex-column-fluid ">
                             <div id="kt_app_content_container" class="app-container  container-fluid ">
@@ -249,17 +247,9 @@
                             class="app-container  container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3 ">
                             <div class="text-gray-900 order-2 order-md-1">
                                 <span class="text-muted fw-semibold me-1">2025&copy;</span>
-                                <a href="https://keenthemes.com/" target="_blank"
-                                    class="text-gray-800 text-hover-primary">Keenthemes</a>
+                                <a href="" target="_blank"
+                                    class="text-gray-800 text-hover-primary">ShadowMitsu</a>
                             </div>
-                            <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-                                <li class="menu-item"><a href="https://keenthemes.com/" target="_blank"
-                                        class="menu-link px-2">About</a></li>
-                                <li class="menu-item"><a href="https://devs.keenthemes.com/" target="_blank"
-                                        class="menu-link px-2">Support</a></li>
-                                <li class="menu-item"><a href="https://keenthemes.com/products/bold-html-pro"
-                                        target="_blank" class="menu-link px-2">Purchase</a></li>
-                            </ul>
                         </div>
                     </div>
                 </div>

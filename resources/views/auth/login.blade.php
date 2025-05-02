@@ -5,11 +5,10 @@
     <title>Login | Agen Doorasi</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets/media/logos/logo.png') }}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37564768-1"></script>
 </head>
 
 <body id="kt_body" class="auth-bg">
@@ -35,9 +34,6 @@
             document.documentElement.setAttribute("data-bs-theme", themeMode);
         }
     </script>
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5FS8GGP" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-
     <div class="d-flex flex-column flex-root">
         <style>
             .auth-page-bg {
@@ -52,7 +48,7 @@
         <div
             class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed auth-page-bg">
             <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
-                <a href="{{ asset('index.html') }}" class="mb-12">
+                <a href="" class="mb-12">
                     <img alt="Logo" src="{{ asset('assets/media/logos/logo.png') }}"
                         class="h-30px theme-light-show" />
                     <img alt="Logo" src="{{ asset('assets/media/logos/logo.png') }}"

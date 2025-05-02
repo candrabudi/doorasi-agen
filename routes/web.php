@@ -3,15 +3,25 @@
 use App\Http\Controllers\Accordiancontroller;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CalculateShippingCostController;
 use App\Http\Controllers\DistributorController;
 use App\Http\Controllers\MarketPlaceController;
 use App\Http\Controllers\ShipmentController;
+use App\Http\Controllers\ShippingCostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CorsMiddleware;
 
 Route::get('/login', [AuthController::class, 'pageLogin'])->name('login');
 Route::post('/login/process', [AuthController::class, 'login'])->name('login.process');
+
+
+Route::prefix('cek-ongkir')->name('calculate_shipping_cost.')->group(function () {
+    Route::get('/', [ShippingCostController::class, 'index'])->name('index');
+    Route::get('/process', [ShippingCostController::class, 'calculateShippingCost'])->name('calculateShippingCost');
+});
+
+
 
 
 Route::middleware([CorsMiddleware::class])->group(function () {
@@ -28,21 +38,19 @@ Route::get('/test', function () {
     return view('test');
 });
 
-// Protected routes with auth middleware
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/', function () {
         return view('welcome');
     });
     
-    // Route tanpa auth - untuk insert area (jika hanya digunakan sekali dan internal, bisa juga dihapus dari route publik)
     Route::prefix('insert')->group(function () {
         Route::get('/province', [AreaController::class, 'insertProvince']);
         Route::get('/regency', [AreaController::class, 'insertRegency']);
         Route::get('/district', [AreaController::class, 'insertDistrict']);
         Route::get('/village', [AreaController::class, 'insertVillage']);
     });
-    // User Routes
+
     Route::prefix('users')->name('users.')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('index');
         Route::get('/create', [UserController::class, 'create'])->name('create');
@@ -53,7 +61,6 @@ Route::middleware(['auth'])->group(function () {
         Route::patch('/{id}/status', [UserController::class, 'updateStatus'])->name('updateStatus');
     });
 
-    // Distributor Routes
     Route::prefix('distributors')->name('distributors.')->group(function () {
         Route::get('/', [DistributorController::class, 'index'])->name('index');
         Route::get('/create', [DistributorController::class, 'create'])->name('create');
@@ -64,7 +71,6 @@ Route::middleware(['auth'])->group(function () {
         Route::patch('/{id}/status', [DistributorController::class, 'updateStatus'])->name('updateStatus');
     });
 
-    // Shipment Routes
     Route::prefix('shipments')->name('shipments.')->group(function () {
         Route::get('/', [ShipmentController::class, 'index'])->name('index');
         Route::post('/store', [ShipmentController::class, 'store'])->name('store');
@@ -73,7 +79,6 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/{id}/delete', [ShipmentController::class, 'destroy'])->name('destroy');
     });
 
-    // Marketplace Routes
     Route::prefix('marketplaces')->name('marketplaces.')->group(function () {
         Route::get('/', [MarketPlaceController::class, 'index'])->name('index');
         Route::get('/create', [MarketPlaceController::class, 'create'])->name('create');
@@ -82,5 +87,16 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/update/{id}', [MarketPlaceController::class, 'update'])->name('update');
         Route::delete('/destroy/{id}', [MarketPlaceController::class, 'destroy'])->name('destroy');
     });
+   
+   
+    Route::prefix('calculate-shipping-cost')->name('calculate_shipping_cost.')->group(function () {
+        Route::get('/', [CalculateShippingCostController::class, 'index'])->name('index');
+        Route::get('/calculate', [CalculateShippingCostController::class, 'calculateShippingCost'])->name('calculateShippingCost');
+        Route::get('/provinces', [CalculateShippingCostController::class, 'getProvinces'])->name('getProvinces');
+        Route::get('/regencies', [CalculateShippingCostController::class, 'getRegencies'])->name('getRegencies');
+        Route::get('/districts', [CalculateShippingCostController::class, 'getDistricts'])->name('getDistricts');
+        Route::get('/distributors/nearby', [CalculateShippingCostController::class, 'getNearbyDistributors'])->name('getNearby');
+    });
+    
 
 });
