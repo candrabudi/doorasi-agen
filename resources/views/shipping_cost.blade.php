@@ -228,20 +228,19 @@
                                 <div
                                     class="d-flex justify-content-between align-items-center mb-3 flex-column flex-sm-row gap-2">
                                     <div class="btn-group" role="group">
-                                        <button type="button" id="sortByDistance" class="btn btn-outline-primary">📍
-                                            Jarak Terdekat</button>
+                                        <button type="button" id="sortByDistance" class="btn btn-primary">📍 Jarak
+                                            Terdekat</button>
                                         <button type="button" id="sortByPrice" class="btn btn-outline-success">💰
                                             Ongkir Termurah</button>
                                     </div>
                                 </div>
 
-
                                 <ul id="rateTabs" class="nav nav-pills mb-3 justify-content-center">
                                     <li class="nav-item">
-                                        <button class="nav-link active" data-filter="All">All</button>
+                                        <button class="nav-link" data-filter="All">All</button>
                                     </li>
                                     <li class="nav-item">
-                                        <button class="nav-link" data-filter="JNE">JNE</button>
+                                        <button class="nav-link active" data-filter="JNE">JNE</button>
                                     </li>
                                     <li class="nav-item">
                                         <button class="nav-link" data-filter="J&T Express">J&T Express</button>
@@ -264,9 +263,7 @@
                                 </div>
 
                                 <div id="shippingRatesContainer"
-                                    class="row g-3 row-cols-1 row-cols-sm-2 row-cols-lg-3">
-
-                                </div>
+                                    class="row g-3 row-cols-1 row-cols-sm-2 row-cols-lg-3"></div>
                             </div>
                         </div>
                     </div>
@@ -388,8 +385,8 @@
         const sortByPriceBtn = document.getElementById('sortByPrice');
 
         let originalData = [];
-        let currentTab = 'All';
-        let sortMode = 'price'; // default sort
+        let currentTab = 'JNE'; // Default tab
+        let sortMode = 'distance'; // Default sort
 
         cekOngkirBtn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -494,7 +491,7 @@
                 card.appendChild(logisticName);
 
                 const shipmentPrice = document.createElement('div');
-                shipmentPrice.classList.add('shipment-price', 'text-danger', 'fw-bold');
+                shipmentPrice.classList.add('shipment-price', 'text-danger', 'fw-bold', 'fs-4');
                 shipmentPrice.textContent = `Rp ${rate.shipment_price.toLocaleString()}`;
                 card.appendChild(shipmentPrice);
 
@@ -514,7 +511,7 @@
                 card.appendChild(address);
 
                 const distance_location = document.createElement('div');
-                distance_location.classList.add('distance_location');
+                distance_location.classList.add('distance_location', 'fw-bold');
                 distance_location.textContent = `Jarak: ${rate.distance_km} KM`;
                 card.appendChild(distance_location);
 
@@ -538,7 +535,6 @@
             }
         });
 
-        // Sorting buttons
         sortByDistanceBtn.addEventListener('click', function() {
             sortMode = 'distance';
             sortByDistanceBtn.classList.add('btn-primary');
@@ -556,8 +552,13 @@
             sortByDistanceBtn.classList.add('btn-outline-primary');
             filterAndRender();
         });
-    </script>
 
+        window.addEventListener('DOMContentLoaded', () => {
+            sortByDistanceBtn.classList.add('btn-primary');
+            sortByDistanceBtn.classList.remove('btn-outline-primary');
+            document.querySelector('#rateTabs button[data-filter="JNE"]').classList.add('active');
+        });
+    </script>
 
 
     <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>

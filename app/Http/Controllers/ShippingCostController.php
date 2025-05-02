@@ -92,6 +92,7 @@ class ShippingCostController extends Controller
             );
 
             foreach ($shippingRate as $rate) {
+                // return $rate['logistic_name'];
                 $data = [
                     'distributor_name' => $locationDistributor['full_name'],
                     'address' => $locationDistributor['address'],
@@ -171,7 +172,7 @@ class ShippingCostController extends Controller
             'weight' => $weight,
             'include_flat_rate' => 'true',
         ]);
-    
+        $filteredRates = [];
         if ($response->successful()) {
             $rates = $response->json()['data'];
 
@@ -202,10 +203,10 @@ class ShippingCostController extends Controller
                 return $filteredRates;
             }
     
-            return response()->json(['error' => 'No regular rates found'], 404);
+            return $filteredRates;
         }
     
-        return response()->json(['error' => 'Unable to fetch shipping rate'], $response->status());
+        return $filteredRates;
     }
     
 }
