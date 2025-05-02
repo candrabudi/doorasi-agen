@@ -162,6 +162,7 @@
             height: 3rem;
             border-width: 0.3rem;
         }
+
         @media (max-width: 576px) {
             #searchInput {
                 font-size: 14px;
@@ -224,27 +225,46 @@
 
 
                             <div class="col-12 col-lg-8">
-                                <div
-                                    class="d-flex justify-content-between align-items-center mb-3 flex-column flex-sm-row gap-2">
-                                    <input type="text" id="searchInput" class="form-control"
-                                        placeholder="🔍 Cari ekspedisi, agen, harga...">
+                                <div class="d-flex justify-content-between align-items-center mb-3 flex-column flex-sm-row gap-2">
+                                    <input type="text" id="searchInput" class="form-control" placeholder="🔍 Cari ekspedisi, agen, harga...">
                                 </div>
-
+                            
+                                <ul id="rateTabs" class="nav nav-pills mb-3 justify-content-center">
+                                    <li class="nav-item">
+                                        <button class="nav-link active" data-filter="All">All</button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button class="nav-link" data-filter="JNE">JNE</button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button class="nav-link" data-filter="J&T Express">J&T Express</button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button class="nav-link" data-filter="ID Express">IDEXPRESS</button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button class="nav-link" data-filter="SAP Logistic">SAP Logistic</button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button class="nav-link" data-filter="SiCepat">SICEPAT</button>
+                                    </li>
+                                </ul>
+                            
                                 <div id="loadingIndicator" class="text-center mt-3" style="display: none;">
                                     <div class="spinner-border text-success" role="status">
                                         <span class="visually-hidden">Loading...</span>
                                     </div>
                                 </div>
+                            
                                 <div id="shippingRatesContainer" class="row g-3 row-cols-1 row-cols-sm-2 row-cols-lg-3">
+
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 
     <script>
@@ -355,8 +375,10 @@
         const loadingIndicator = document.getElementById('loadingIndicator');
         const searchInput = document.getElementById('searchInput');
         const container = document.getElementById('shippingRatesContainer');
+        const rateTabs = document.getElementById('rateTabs');
 
         let originalData = [];
+        let currentTab = 'All';
 
         cekOngkirBtn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -398,7 +420,7 @@
                 .then(response => response.json())
                 .then(data => {
                     originalData = data;
-                    renderCards(originalData);
+                    filterAndRender();
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -408,6 +430,25 @@
                     loadingIndicator.style.display = 'none';
                 });
         });
+
+        function filterAndRender() {
+            let filtered = [...originalData];
+
+            if (currentTab !== 'All') {
+                filtered = filtered.filter(rate => rate.logistic_name === currentTab);
+            }
+
+            const query = searchInput.value.trim().toLowerCase();
+            if (query) {
+                filtered = filtered.filter(rate =>
+                    rate.logistic_name.toLowerCase().includes(query) ||
+                    rate.distributor_name.toLowerCase().includes(query) ||
+                    rate.shipment_price.toString().includes(query)
+                );
+            }
+
+            renderCards(filtered);
+        }
 
         function renderCards(data) {
             container.innerHTML = '';
@@ -461,8 +502,16 @@
 
                 const address = document.createElement('div');
                 address.classList.add('address');
-                address.textContent = `Alamat: ${rate.address}, ${rate.province_name}, ${rate.regency_name}, ${rate.district_name}`;
+                address.textContent =
+                    `Alamat: ${rate.province_name}, ${rate.regency_name}, ${rate.district_name}`;
                 card.appendChild(address);
+
+
+                const distance_location = document.createElement('div');
+                distance_location.classList.add('distance_location');
+                distance_location.textContent =
+                    `Jarak: ${rate.distance_km} KM`;
+                card.appendChild(distance_location);
 
                 const phone = document.createElement('div');
                 phone.classList.add('phone');
@@ -474,20 +523,19 @@
             });
         }
 
-        searchInput.addEventListener('input', function() {
-            const query = this.value.trim().toLowerCase();
+        searchInput.addEventListener('input', filterAndRender);
 
-            const filtered = originalData.filter(rate => {
-                return (
-                    rate.logistic_name.toLowerCase().includes(query) ||
-                    rate.distributor_name.toLowerCase().includes(query) ||
-                    rate.shipment_price.toString().includes(query)
-                );
-            });
-
-            renderCards(filtered);
+        rateTabs.addEventListener('click', function(e) {
+            if (e.target.tagName === 'BUTTON') {
+                const buttons = rateTabs.querySelectorAll('.nav-link');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                currentTab = e.target.dataset.filter;
+                filterAndRender();
+            }
         });
     </script>
+
 
     <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
