@@ -107,7 +107,7 @@ class ShippingCostController extends Controller
                     'rate_name' => $rate['rate_name'],
                     'duration_type' => $rate['duration_type'],
                     'duration' => $rate['duration'],
-                    'shipment_price' => $rate['shipment_price'],
+                    'shipment_price' => $rate['shipment_price'] + 5000, 
                 ];
 
                 $shippingRates[] = $data;
