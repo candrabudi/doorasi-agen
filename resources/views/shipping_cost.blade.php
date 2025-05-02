@@ -225,10 +225,17 @@
 
 
                             <div class="col-12 col-lg-8">
-                                <div class="d-flex justify-content-between align-items-center mb-3 flex-column flex-sm-row gap-2">
-                                    <input type="text" id="searchInput" class="form-control" placeholder="🔍 Cari ekspedisi, agen, harga...">
+                                <div
+                                    class="d-flex justify-content-between align-items-center mb-3 flex-column flex-sm-row gap-2">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" id="sortByDistance" class="btn btn-outline-primary">📍
+                                            Jarak Terdekat</button>
+                                        <button type="button" id="sortByPrice" class="btn btn-outline-success">💰
+                                            Ongkir Termurah</button>
+                                    </div>
                                 </div>
-                            
+
+
                                 <ul id="rateTabs" class="nav nav-pills mb-3 justify-content-center">
                                     <li class="nav-item">
                                         <button class="nav-link active" data-filter="All">All</button>
@@ -249,14 +256,15 @@
                                         <button class="nav-link" data-filter="SiCepat">SICEPAT</button>
                                     </li>
                                 </ul>
-                            
+
                                 <div id="loadingIndicator" class="text-center mt-3" style="display: none;">
                                     <div class="spinner-border text-success" role="status">
                                         <span class="visually-hidden">Loading...</span>
                                     </div>
                                 </div>
-                            
-                                <div id="shippingRatesContainer" class="row g-3 row-cols-1 row-cols-sm-2 row-cols-lg-3">
+
+                                <div id="shippingRatesContainer"
+                                    class="row g-3 row-cols-1 row-cols-sm-2 row-cols-lg-3">
 
                                 </div>
                             </div>
@@ -373,12 +381,15 @@
     <script>
         const cekOngkirBtn = document.getElementById('cek-ongkir-btn');
         const loadingIndicator = document.getElementById('loadingIndicator');
-        const searchInput = document.getElementById('searchInput');
         const container = document.getElementById('shippingRatesContainer');
         const rateTabs = document.getElementById('rateTabs');
 
+        const sortByDistanceBtn = document.getElementById('sortByDistance');
+        const sortByPriceBtn = document.getElementById('sortByPrice');
+
         let originalData = [];
         let currentTab = 'All';
+        let sortMode = 'price'; // default sort
 
         cekOngkirBtn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -438,13 +449,10 @@
                 filtered = filtered.filter(rate => rate.logistic_name === currentTab);
             }
 
-            const query = searchInput.value.trim().toLowerCase();
-            if (query) {
-                filtered = filtered.filter(rate =>
-                    rate.logistic_name.toLowerCase().includes(query) ||
-                    rate.distributor_name.toLowerCase().includes(query) ||
-                    rate.shipment_price.toString().includes(query)
-                );
+            if (sortMode === 'distance') {
+                filtered.sort((a, b) => a.distance_km - b.distance_km);
+            } else {
+                filtered.sort((a, b) => a.shipment_price - b.shipment_price);
             }
 
             renderCards(filtered);
@@ -502,15 +510,12 @@
 
                 const address = document.createElement('div');
                 address.classList.add('address');
-                address.textContent =
-                    `Alamat: ${rate.province_name}, ${rate.regency_name}, ${rate.district_name}`;
+                address.textContent = `Alamat: ${rate.province_name}, ${rate.regency_name}, ${rate.district_name}`;
                 card.appendChild(address);
-
 
                 const distance_location = document.createElement('div');
                 distance_location.classList.add('distance_location');
-                distance_location.textContent =
-                    `Jarak: ${rate.distance_km} KM`;
+                distance_location.textContent = `Jarak: ${rate.distance_km} KM`;
                 card.appendChild(distance_location);
 
                 const phone = document.createElement('div');
@@ -523,8 +528,6 @@
             });
         }
 
-        searchInput.addEventListener('input', filterAndRender);
-
         rateTabs.addEventListener('click', function(e) {
             if (e.target.tagName === 'BUTTON') {
                 const buttons = rateTabs.querySelectorAll('.nav-link');
@@ -534,7 +537,27 @@
                 filterAndRender();
             }
         });
+
+        // Sorting buttons
+        sortByDistanceBtn.addEventListener('click', function() {
+            sortMode = 'distance';
+            sortByDistanceBtn.classList.add('btn-primary');
+            sortByDistanceBtn.classList.remove('btn-outline-primary');
+            sortByPriceBtn.classList.remove('btn-success');
+            sortByPriceBtn.classList.add('btn-outline-success');
+            filterAndRender();
+        });
+
+        sortByPriceBtn.addEventListener('click', function() {
+            sortMode = 'price';
+            sortByPriceBtn.classList.add('btn-success');
+            sortByPriceBtn.classList.remove('btn-outline-success');
+            sortByDistanceBtn.classList.remove('btn-primary');
+            sortByDistanceBtn.classList.add('btn-outline-primary');
+            filterAndRender();
+        });
     </script>
+
 
 
     <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
