@@ -20,18 +20,22 @@ class ShippingCostController extends Controller
 
         $distributors = DB::table('distributors')
             ->join('districts', 'distributors.district_id', '=', 'districts.id')
+            ->join('regencies', 'districts.regency_id', '=', 'regencies.id')
+            ->join('provinces', 'regencies.province_id', '=', 'provinces.id')
             ->select(
                 'distributors.*',
                 DB::raw("(
-                    6371 * acos(
-                        cos(radians($district->latitude)) *
-                        cos(radians(districts.latitude)) *
-                        cos(radians(districts.longitude) - radians($district->longitude)) +
-                        sin(radians($district->latitude)) *
-                        sin(radians(districts.latitude))
-                    )
-                ) AS distance_km"),
-                'districts.name as district_name'
+                6371 * acos(
+                    cos(radians($district->latitude)) *
+                    cos(radians(districts.latitude)) *
+                    cos(radians(districts.longitude) - radians($district->longitude)) +
+                    sin(radians($district->latitude)) *
+                    sin(radians(districts.latitude))
+                )
+            ) AS distance_km"),
+                'districts.name as district_name',
+                'regencies.name as regency_name',
+                'provinces.name as province_name'
             )
             ->whereNotNull('districts.latitude')
             ->whereNotNull('districts.longitude')
@@ -39,12 +43,16 @@ class ShippingCostController extends Controller
             ->limit(3)
             ->get();
 
+
         $allLocationDistributors = [];
         foreach ($distributors as $distributor) {
             $locationData = $this->fetchLocationData($distributor->district_name);
             $locationData['full_name'] = $distributor->full_name;
             $locationData['address'] = $distributor->address;
             $locationData['primary_phone'] = $distributor->primary_phone;
+            $locationData['province_name'] = $distributor->province_name;
+            $locationData['regency_name'] = $distributor->regency_name;
+            $locationData['district_name'] = $distributor->district_name;
             array_push($allLocationDistributors, $locationData);
         }
 
@@ -56,12 +64,15 @@ class ShippingCostController extends Controller
                 $request->sub_district_id,
                 $request->weight
             );
-        
+
             foreach ($shippingRate as $rate) {
                 $data = [
                     'distributor_name' => $locationDistributor['full_name'],
                     'address' => $locationDistributor['address'],
                     'primary_phone' => $locationDistributor['primary_phone'],
+                    'province_name' => $locationDistributor['province_name'],
+                    'regency_name' => $locationDistributor['regency_name'],
+                    'district_name' => $locationDistributor['district_name'],
                     'logistic_name' => $rate['logistic_name'],
                     'logistic_logo_url' => $rate['logistic_logo_url'],
                     'rate_code' => $rate['rate_code'],
@@ -70,17 +81,17 @@ class ShippingCostController extends Controller
                     'duration' => $rate['duration'],
                     'shipment_price' => $rate['shipment_price'],
                 ];
-        
+
                 $shippingRates[] = $data;
             }
         }
-        
+
         usort($shippingRates, function ($a, $b) {
             return $a['shipment_price'] <=> $b['shipment_price'];
         });
-        
+
         return response()->json($shippingRates);
-        
+
     }
 
 

@@ -139,7 +139,6 @@
     </style>
 
     <style>
-        /* Styling untuk search input */
         #searchInput {
             padding: 10px 15px;
             font-size: 16px;
@@ -148,13 +147,11 @@
             transition: border-color 0.3s ease;
         }
 
-        /* Efek saat input fokus */
         #searchInput:focus {
             border-color: #28a745;
             box-shadow: 0 0 5px rgba(40, 167, 69, 0.3);
         }
 
-        /* Styling untuk loading indicator */
         #loadingIndicator {
             display: none;
             margin-top: 20px;
@@ -165,8 +162,6 @@
             height: 3rem;
             border-width: 0.3rem;
         }
-
-        /* Responsiveness untuk tampilan */
         @media (max-width: 576px) {
             #searchInput {
                 font-size: 14px;
@@ -231,21 +226,16 @@
                             <div class="col-12 col-lg-8">
                                 <div
                                     class="d-flex justify-content-between align-items-center mb-3 flex-column flex-sm-row gap-2">
-                                    <!-- Search Input -->
                                     <input type="text" id="searchInput" class="form-control"
                                         placeholder="🔍 Cari ekspedisi, agen, harga...">
                                 </div>
 
-                                <!-- Loading Indicator -->
                                 <div id="loadingIndicator" class="text-center mt-3" style="display: none;">
                                     <div class="spinner-border text-success" role="status">
                                         <span class="visually-hidden">Loading...</span>
                                     </div>
                                 </div>
-
-                                <!-- Shipping Rates Container -->
-                                <div id="shippingRatesContainer" class="row g-3 row-cols-1 row-cols-sm-2 row-cols-lg-3">
-                                    <!-- Shipping rate cards will go here -->
+                                <div id="shippingRatesContainer" class="row g-3 row-cols-1 row-cols-sm-2 row-cols-lg-3">\
                                 </div>
                             </div>
 
@@ -471,7 +461,7 @@
 
                 const address = document.createElement('div');
                 address.classList.add('address');
-                address.textContent = `Alamat: ${rate.address}`;
+                address.textContent = `Alamat: ${rate.address}, ${rate.province_name}, ${rate.regency_name}, ${rate.district_name}`;
                 card.appendChild(address);
 
                 const phone = document.createElement('div');
