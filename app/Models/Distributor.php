@@ -36,6 +36,16 @@ class Distributor extends Model
                     ->withTimestamps();
     }
     
+    public function marketPlaceDistributor()
+    {
+        return $this->hasMany(DistributorMarketPlace::class);
+    }
+
+    public function shipmentDistributor()
+    {
+        return $this->hasMany(DistributorShipment::class);
+    }
+    
     public function shipments()
     {
         return $this->belongsToMany(Shipment::class, 'distributor_shipments')->withTimestamps();

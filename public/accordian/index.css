@@ -294,6 +294,13 @@ li {
     margin-left: -15px;
 }
 
+.card-body p a {
+    font-size: 14px;
+    /* display: block; */
+    margin-left: 10px;
+    text-decoration: none;
+}
+
 .marketplace-icons {
     margin-top: -15px;
 }
@@ -324,3 +331,4 @@ li {
 .btn-wa img {
     width: 20px;
 }
+

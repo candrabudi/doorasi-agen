@@ -16,11 +16,12 @@ Route::post('/login/process', [AuthController::class, 'login'])->name('login.pro
 
 Route::middleware([CorsMiddleware::class])->group(function () {
     Route::get('/accordian', [AccordianController::class, 'showDistributors']);
+    Route::get('/get-province-distributors', [AccordianController::class, 'getProvincesWithDistributors']);
+    Route::get('/get-regency-distributors', [AccordianController::class, 'getRegenciesByProvinceWithDistributors']);
     Route::get('/show-distributors', [AccordianController::class, 'listDistributors']);
-    // Route::get('/show-distributors', [AccordianController::class, 'showDistributors']);
-    Route::get('/search-regions', [AccordianController::class, 'searchRegions']);
-    Route::get('/get-distributors', [AccordianController::class, 'getDistributorsByRegion']);
-    Route::get('/list-of-area', [AreaController::class, 'listOfArea']);
+    Route::get('/show-regions/distributor', [AccordianController::class, 'searchRegions']);
+    Route::get('/search-distributors', [AccordianController::class, 'listDistributorsByRegionAndProvince']);
+    Route::get('/get-distributors', [AccordianController::class, 'listDistributorsByRegencyId']);
 });
 
 Route::get('/test', function () {

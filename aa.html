@@ -1,0 +1,369 @@
+<link rel="stylesheet" href="http://localhost:8888/accordian/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="http://localhost:8888/accordian/index.css">
+<div class="distributor-container">
+    <div class="card border-0 bg-transparent">
+        <div class="card-body">
+            <section class="search-section">
+                <p class="label text-center" style="color: #FFF;">Cari Kota/Kecamatan</p>
+                <div class="search-wrapper">
+                    <input type="text" class="search-input" placeholder="Cari lokasi..."
+                        oninput="handleChange(this.value)" id="input-field">
+                    <img src="http://localhost:8888/accordian/svg/clear.svg" alt="clear" class="icon clear"
+                        onclick="clearField()">
+                    <div class="dot-flashing" id="loading" style="display: none;"></div>
+                </div>
+            </section>
+            <div id="result-container" class="result-container" style="display: block;"></div>
+            <div id="search-result-container" class="card-wrapper" style="display: block;"></div>
+            <nav class="acnav" id="distributorsAccordion">
+
+                <li class="has-children">
+                    <div class="acnav__label">SUMATERA UTARA <i class="fa-solid fa-chevron-down chevron"></i></div>
+                    <ul class="acnav__list acnav__list--level2" style="display: none;">
+                        <li class="has-children">
+                            <div class="acnav__label">KOTA MEDAN <i class="fa-solid fa-chevron-down chevron"></i></div>
+                            <ul class="acnav__list acnav__list--level3" style="display: none;">
+                                <li>
+                                    <div class="distributor-card">
+                                        <div class="card-header d-flex align-items-center"><img
+                                                src="https://agen-doorasi.com/assets/media/logos/logo-agen-doorasi.png"
+                                                class="profile-img"
+                                                style="width: 40px; height: 40px; object-fit: contain;">
+                                            <div class="ms-3">
+                                                <p class="distributor-name">Bro JETTA</p>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="address">Jl. Karya Dame Komplek Orlando Karya No.21 H, Sei Agul,
+                                                Medan Barat,
+                                                Medan - Sumatera Utara (20114), MEDAN BARAT, KOTA MEDAN, SUMATERA UTARA
+                                            </p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2"
+                                                    src="https://mganik-assets.pages.dev/assets/pinlocation_googlemaps.svg"
+                                                    alt="pinlocation_googlemaps">
+                                                <a href="#" target="_blank">Peta Google</a>
+                                            </p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2"
+                                                    src="https://mganik-assets.pages.dev/assets/phone.svg"
+                                                    alt="phone-icon">
+                                                <a href="tel:6285150617698">6285150617698</a>
+                                            </p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2 contact-shipping"
+                                                    src="https://mganik-assets.pages.dev/assets/pengiriman.svg"
+                                                    alt="cod-icon">
+                                                Kurir Lainnya
+                                            </p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2 contact-shipping"
+                                                    src="https://mganik-assets.pages.dev/assets/cod.svg" alt="cod-icon">
+                                                COD / Cash on Delivery
+                                            </p>
+                                        </div>
+                                        <div class="marketplace-icons"><a href="http://shopee.co.id/antoayyubi22"
+                                                target="_blank"><img
+                                                    src="https://agen-doorasi.com/storage/icons/1744824793.png"
+                                                    alt="Shopee" title="Shopee"></a></div>
+                                        <div class="card-footer mt-3"><button class="btn-wa"><img
+                                                    src="https://mganik-assets.pages.dev/assets/whatsapp.png"
+                                                    alt="WhatsApp"> BELI
+                                                DISINI</button></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="has-children">
+                    <div class="acnav__label">KEPULAUAN BANGKA BELITUNG <i class="fa-solid fa-chevron-down chevron"></i>
+                    </div>
+                    <ul class="acnav__list acnav__list--level2" style="display: none;">
+                        <li class="has-children">
+                            <div class="acnav__label">KOTA PANGKAL PINANG <i
+                                    class="fa-solid fa-chevron-down chevron"></i></div>
+                            <ul class="acnav__list acnav__list--level3" style="display: none;">
+                                <li>
+                                    <div class="distributor-card">
+                                        <div class="card-header d-flex align-items-center"><img
+                                                src="https://agen-doorasi.com/assets/media/logos/logo-agen-doorasi.png"
+                                                class="profile-img"
+                                                style="width: 40px; height: 40px; object-fit: contain;">
+                                            <div class="ms-3">
+                                                <p class="distributor-name">Bro Arifin</p>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="address">Perumahan Cahaya Residence VI No. 25 Blok 2 Gang Makmur
+                                                Jl. Fatmawati
+                                                Kampak Kel. Bukit Merapin, Kec. Gerunggang, Kota Pangkalpinang, Provinsi
+                                                Kepulauan
+                                                Bangka Belitung, GERUNGGANG, KOTA PANGKAL PINANG, KEPULAUAN BANGKA
+                                                BELITUNG</p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2"
+                                                    src="https://mganik-assets.pages.dev/assets/pinlocation_googlemaps.svg"
+                                                    alt="pinlocation_googlemaps">
+                                                <a href="#" target="_blank">Peta Google</a>
+                                            </p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2"
+                                                    src="https://mganik-assets.pages.dev/assets/phone.svg"
+                                                    alt="phone-icon">
+                                                <a href="tel:6281252466607">6281252466607</a>
+                                            </p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2 contact-shipping"
+                                                    src="https://mganik-assets.pages.dev/assets/pengiriman.svg"
+                                                    alt="cod-icon">
+                                                Kurir Lainnya
+                                            </p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2 contact-shipping"
+                                                    src="https://mganik-assets.pages.dev/assets/cod.svg" alt="cod-icon">
+                                                COD / Cash on Delivery
+                                            </p>
+                                        </div>
+                                        <div class="card-footer mt-3"><button class="btn-wa"><img
+                                                    src="https://mganik-assets.pages.dev/assets/whatsapp.png"
+                                                    alt="WhatsApp"> BELI
+                                                DISINI</button></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="has-children">
+                    <div class="acnav__label">DKI JAKARTA <i class="fa-solid fa-chevron-down chevron"></i></div>
+                    <ul class="acnav__list acnav__list--level2" style="display: none;">
+                        <li class="has-children">
+                            <div class="acnav__label">KOTA JAKARTA TIMUR <i
+                                    class="fa-solid fa-chevron-down chevron"></i></div>
+                            <ul class="acnav__list acnav__list--level3" style="display: none;">
+                                <li>
+                                    <div class="distributor-card">
+                                        <div class="card-header d-flex align-items-center"><img
+                                                src="https://agen-doorasi.com/assets/media/logos/logo-agen-doorasi.png"
+                                                class="profile-img"
+                                                style="width: 40px; height: 40px; object-fit: contain;">
+                                            <div class="ms-3">
+                                                <p class="distributor-name">Wira</p>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="address">Jl. Albhaidho Raya RT05/06 No.20, Lubang Buaya, CIPAYUNG,
+                                                KOTA
+                                                JAKARTA TIMUR, DKI JAKARTA</p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2"
+                                                    src="https://mganik-assets.pages.dev/assets/pinlocation_googlemaps.svg"
+                                                    alt="pinlocation_googlemaps">
+                                                <a href="https://maps.app.goo.gl/vrwVwbyGSEyw12Zn7" target="_blank">Peta
+                                                    Google</a>
+                                            </p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2"
+                                                    src="https://mganik-assets.pages.dev/assets/phone.svg"
+                                                    alt="phone-icon">
+                                                <a href="tel:6285117500127">6285117500127</a>
+                                            </p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2 contact-shipping"
+                                                    src="https://mganik-assets.pages.dev/assets/pengiriman.svg"
+                                                    alt="cod-icon">
+                                                Kurir Lainnya
+                                            </p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2 contact-shipping"
+                                                    src="https://mganik-assets.pages.dev/assets/cod.svg" alt="cod-icon">
+                                                COD / Cash on Delivery
+                                            </p>
+                                        </div>
+                                        <div class="card-footer mt-3"><button class="btn-wa"><img
+                                                    src="https://mganik-assets.pages.dev/assets/whatsapp.png"
+                                                    alt="WhatsApp"> BELI
+                                                DISINI</button></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <div class="acnav__label">KOTA JAKARTA PUSAT <i
+                                    class="fa-solid fa-chevron-down chevron"></i></div>
+                            <ul class="acnav__list acnav__list--level3" style="display: none;">
+                                <li>
+                                    <div class="distributor-card">
+                                        <div class="card-header d-flex align-items-center"><img
+                                                src="https://agen-doorasi.com/assets/media/logos/logo-agen-doorasi.png"
+                                                class="profile-img"
+                                                style="width: 40px; height: 40px; object-fit: contain;">
+                                            <div class="ms-3">
+                                                <p class="distributor-name">Arif Nur Sulaiman</p>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="address">Jl. Rawasari Timur 1 Dalam No.50 RT.16/RW.02, Cempaka
+                                                Putih Timur
+                                                (Samping Masjid Al-Nizhom), CEMPAKA PUTIH, KOTA JAKARTA PUSAT, DKI
+                                                JAKARTA</p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2"
+                                                    src="https://mganik-assets.pages.dev/assets/pinlocation_googlemaps.svg"
+                                                    alt="pinlocation_googlemaps">
+                                                <a href="https://maps.app.goo.gl/4kD2KsrPuT5aeNqB7" target="_blank">Peta
+                                                    Google</a>
+                                            </p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2"
+                                                    src="https://mganik-assets.pages.dev/assets/phone.svg"
+                                                    alt="phone-icon">
+                                                <a href="tel:6285117500127">6285117500127</a>
+                                            </p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2 contact-shipping"
+                                                    src="https://mganik-assets.pages.dev/assets/pengiriman.svg"
+                                                    alt="cod-icon">
+                                                Kurir Lainnya
+                                            </p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2 contact-shipping"
+                                                    src="https://mganik-assets.pages.dev/assets/cod.svg" alt="cod-icon">
+                                                COD / Cash on Delivery
+                                            </p>
+                                        </div>
+                                        <div class="card-footer mt-3"><button class="btn-wa"><img
+                                                    src="https://mganik-assets.pages.dev/assets/whatsapp.png"
+                                                    alt="WhatsApp"> BELI
+                                                DISINI</button></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="distributor-card">
+                                        <div class="card-header d-flex align-items-center"><img
+                                                src="https://agen-doorasi.com/assets/media/logos/logo-agen-doorasi.png"
+                                                class="profile-img"
+                                                style="width: 40px; height: 40px; object-fit: contain;">
+                                            <div class="ms-3">
+                                                <p class="distributor-name">Roni</p>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="address">Jalan Kebon Kacang V No. 62, RT.12/RW.12, Kb. Kacang,
+                                                Kebon Kacang,
+                                                Tanah Abang, KOTA JAKARTA PUSAT - TANAH ABANG, DKI JAKARTA,
+                                                ID&nbsp;10240, TANAH
+                                                ABANG, KOTA JAKARTA PUSAT, DKI JAKARTA</p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2"
+                                                    src="https://mganik-assets.pages.dev/assets/pinlocation_googlemaps.svg"
+                                                    alt="pinlocation_googlemaps">
+                                                <a href="#" target="_blank">Peta Google</a>
+                                            </p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2"
+                                                    src="https://mganik-assets.pages.dev/assets/phone.svg"
+                                                    alt="phone-icon">
+                                                <a href="tel:+6285829325622">+6285829325622</a>
+                                            </p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2 contact-shipping"
+                                                    src="https://mganik-assets.pages.dev/assets/pengiriman.svg"
+                                                    alt="cod-icon">
+                                                Kurir Lainnya
+                                            </p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2 contact-shipping"
+                                                    src="https://mganik-assets.pages.dev/assets/cod.svg" alt="cod-icon">
+                                                COD / Cash on Delivery
+                                            </p>
+                                        </div>
+                                        <div class="card-footer mt-3"><button class="btn-wa"><img
+                                                    src="https://mganik-assets.pages.dev/assets/whatsapp.png"
+                                                    alt="WhatsApp"> BELI
+                                                DISINI</button></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <div class="acnav__label">KOTA JAKARTA UTARA <i
+                                    class="fa-solid fa-chevron-down chevron"></i></div>
+                            <ul class="acnav__list acnav__list--level3" style="display: none;">
+                                <li>
+                                    <div class="distributor-card">
+                                        <div class="card-header d-flex align-items-center"><img
+                                                src="https://agen-doorasi.com/assets/media/logos/logo-agen-doorasi.png"
+                                                class="profile-img"
+                                                style="width: 40px; height: 40px; object-fit: contain;">
+                                            <div class="ms-3">
+                                                <p class="distributor-name">Kelvin</p>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="address">Jl. Jembatan Gambang 1 No.35 Rt.012/Rw. 001, Pejagalan,
+                                                Penjaringan,
+                                                jakarta Utara, PENJARINGAN, KOTA JAKARTA UTARA, DKI JAKARTA</p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2"
+                                                    src="https://mganik-assets.pages.dev/assets/pinlocation_googlemaps.svg"
+                                                    alt="pinlocation_googlemaps">
+                                                <a href="#" target="_blank">Peta Google</a>
+                                            </p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2"
+                                                    src="https://mganik-assets.pages.dev/assets/phone.svg"
+                                                    alt="phone-icon">
+                                                <a href="tel:628895327235">628895327235</a>
+                                            </p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2 contact-shipping"
+                                                    src="https://mganik-assets.pages.dev/assets/pengiriman.svg"
+                                                    alt="cod-icon">
+                                                Kurir Lainnya
+                                            </p>
+                                            <p>
+                                                <img decoding="async" loading="lazy" class="mr-2 contact-shipping"
+                                                    src="https://mganik-assets.pages.dev/assets/cod.svg" alt="cod-icon">
+                                                COD / Cash on Delivery
+                                            </p>
+                                        </div>
+                                        <div class="card-footer mt-3"><button class="btn-wa"><img
+                                                    src="https://mganik-assets.pages.dev/assets/whatsapp.png"
+                                                    alt="WhatsApp"> BELI
+                                                DISINI</button></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- <script src="http://localhost:8888/accordian/js/accversionone.js"></script> -->
+<script>
+    function toggleAccordion(element) {
+        const siblingList = element.nextElementSibling;
+        const chevron = element.querySelector('.chevron');
+        if (siblingList.style.display === 'none') {
+            siblingList.style.display = 'block';
+            chevron.classList.add('rotate');
+        } else {
+            siblingList.style.display = 'none';
+            chevron.classList.remove('rotate');
+        }
+    }
+
+
+    function directToWA(phone, text) {
+        const encodedText = encodeURIComponent(text);
+        window.open(`https://wa.me/${phone}?text=${encodedText}`, '_blank');
+    }
+</script>
