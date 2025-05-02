@@ -30,10 +30,9 @@ class ShippingCostController extends Controller
         $districtName = strtoupper($request->district);
         $districtName = str_replace(' - KOTA', '', $districtName);
 
-        $regency = Regency::where('name', $regencyName)
+        $regency = Regency::where('name', 'LIKE','%'.$regencyName.'%')
             ->where('province_id', $province->id)
             ->first();
-
         $district = $province;
         if ($regency) {
             $district = District::where('regency_id', $regency->id)
