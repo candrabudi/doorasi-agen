@@ -99,7 +99,6 @@ class ShippingCostController extends Controller
             );
 
             foreach ($shippingRate as $rate) {
-                // return $rate['logistic_name'];
                 $data = [
                     'distributor_name' => $locationDistributor['full_name'],
                     'address' => $locationDistributor['address'],

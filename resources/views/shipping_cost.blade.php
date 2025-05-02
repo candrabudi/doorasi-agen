@@ -385,8 +385,8 @@
         const sortByPriceBtn = document.getElementById('sortByPrice');
 
         let originalData = [];
-        let currentTab = 'JNE'; // Default tab
-        let sortMode = 'distance'; // Default sort
+        let currentTab = 'JNE';
+        let sortMode = 'distance';
 
         cekOngkirBtn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -487,7 +487,7 @@
 
                 const logisticName = document.createElement('div');
                 logisticName.classList.add('logistic-name', 'fw-bold');
-                logisticName.textContent = rate.logistic_name;
+                logisticName.textContent = rate.logistic_name + ' - ' + rate.rate_name;
                 card.appendChild(logisticName);
 
                 const shipmentPrice = document.createElement('div');
