@@ -235,7 +235,7 @@
                                         <span class="visually-hidden">Loading...</span>
                                     </div>
                                 </div>
-                                <div id="shippingRatesContainer" class="row g-3 row-cols-1 row-cols-sm-2 row-cols-lg-3">\
+                                <div id="shippingRatesContainer" class="row g-3 row-cols-1 row-cols-sm-2 row-cols-lg-3">
                                 </div>
                             </div>
 
