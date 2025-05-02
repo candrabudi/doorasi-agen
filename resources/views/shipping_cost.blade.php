@@ -464,65 +464,87 @@
             }
 
             const minPrice = Math.min(...data.map(r => r.shipment_price));
-
             data.forEach(rate => {
                 const col = document.createElement('div');
                 col.className = 'col';
 
                 const card = document.createElement('div');
-                card.classList.add('shipping-rate-card', 'card', 'p-3', 'h-100', 'shadow-sm', 'position-relative');
+                card.classList.add('shipping-rate-card', 'card', 'p-3', 'h-100', 'shadow-sm',
+                'position-relative'); // padding diperbesar jadi p-3
 
                 if (rate.shipment_price === minPrice) {
                     const label = document.createElement('div');
-                    label.classList.add('recommended-label');
+                    label.classList.add('recommended-label', 'position-absolute', 'top-0', 'end-0', 'badge',
+                        'bg-warning', 'text-dark');
                     label.textContent = '⭐ Rekomendasi';
                     card.appendChild(label);
                 }
 
+                const topRow = document.createElement('div');
+                topRow.classList.add('d-flex', 'align-items-center', 'gap-3', 'mb-2');
+
                 const logo = document.createElement('img');
                 logo.src = rate.logistic_logo_url;
-                logo.classList.add('mb-2');
-                logo.style.width = '100px';
-                card.appendChild(logo);
+                logo.style.width = '50px';
+                logo.classList.add('rounded');
+                topRow.appendChild(logo);
 
+                const infoBox = document.createElement('div');
                 const logisticName = document.createElement('div');
-                logisticName.classList.add('logistic-name', 'fw-bold');
-                logisticName.textContent = rate.logistic_name + ' - ' + rate.rate_name;
-                card.appendChild(logisticName);
+                logisticName.classList.add('fw-bold', 'small');
+                logisticName.textContent = `${rate.logistic_name} - ${rate.rate_name}`;
+                infoBox.appendChild(logisticName);
 
                 const shipmentPrice = document.createElement('div');
-                shipmentPrice.classList.add('shipment-price', 'text-danger', 'fw-bold', 'fs-4');
+                shipmentPrice.classList.add('text-danger', 'fw-bold');
                 shipmentPrice.textContent = `Rp ${rate.shipment_price.toLocaleString()}`;
-                card.appendChild(shipmentPrice);
+                infoBox.appendChild(shipmentPrice);
 
                 const duration = document.createElement('div');
-                duration.classList.add('duration', 'text-muted');
+                duration.classList.add('text-muted', 'small');
                 duration.textContent = `Estimasi: ${rate.duration} ${rate.duration_type.toLowerCase()}`;
-                card.appendChild(duration);
+                infoBox.appendChild(duration);
+
+                topRow.appendChild(infoBox);
+                card.appendChild(topRow);
+
+                const divider = document.createElement('hr');
+                divider.classList.add('my-2');
+                card.appendChild(divider);
+
+                const meta = document.createElement('div');
+                meta.classList.add('small');
+
+                const agentCode = document.createElement('div');
+                agentCode.classList.add('text-muted');
+                agentCode.textContent = `Kode Agen: ${rate.agent_code}`;
+                meta.appendChild(agentCode);
 
                 const distributor = document.createElement('div');
-                distributor.classList.add('distributor', 'mt-2');
+                distributor.classList.add('fw-bold', 'mb-1', 'fs-6'); // teks distributor diperbesar
                 distributor.textContent = `Distributor: ${rate.distributor_name}`;
-                card.appendChild(distributor);
+                meta.appendChild(distributor);
 
                 const address = document.createElement('div');
-                address.classList.add('address');
+                address.classList.add('fw-semibold', 'mb-1'); // teks alamat diperbesar
                 address.textContent = `Alamat: ${rate.province_name}, ${rate.regency_name}, ${rate.district_name}`;
-                card.appendChild(address);
+                meta.appendChild(address);
 
                 const distance_location = document.createElement('div');
-                distance_location.classList.add('distance_location', 'fw-bold');
+                distance_location.classList.add('fw-bold');
                 distance_location.textContent = `Jarak: ${rate.distance_km} KM`;
-                card.appendChild(distance_location);
+                meta.appendChild(distance_location);
 
                 const phone = document.createElement('div');
-                phone.classList.add('phone');
                 phone.textContent = `Kontak: ${rate.primary_phone}`;
-                card.appendChild(phone);
+                meta.appendChild(phone);
 
+                card.appendChild(meta);
                 col.appendChild(card);
                 container.appendChild(col);
             });
+
+
         }
 
         rateTabs.addEventListener('click', function(e) {

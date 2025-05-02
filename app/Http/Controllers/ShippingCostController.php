@@ -80,6 +80,7 @@ class ShippingCostController extends Controller
                 continue;
             }
             $locationData['full_name'] = $distributor->full_name;
+            $locationData['agent_code'] = $distributor->agent_code;
             $locationData['address'] = $distributor->address;
             $locationData['primary_phone'] = $distributor->primary_phone;
             $locationData['province_name'] = $distributor->province_name;
@@ -100,6 +101,7 @@ class ShippingCostController extends Controller
 
             foreach ($shippingRate as $rate) {
                 $data = [
+                    'agent_code' => $locationDistributor['agent_code'],
                     'distributor_name' => $locationDistributor['full_name'],
                     'address' => $locationDistributor['address'],
                     'primary_phone' => $locationDistributor['primary_phone'],
@@ -186,8 +188,10 @@ class ShippingCostController extends Controller
     
             $regularRates = array_filter($rates, function ($rate) use ($allowedLogistics) {
                 return $rate['rate_type_name'] === 'Reguler' &&
-                       in_array($rate['logistic_name'], $allowedLogistics);
+                       in_array($rate['logistic_name'], $allowedLogistics) &&
+                       trim($rate['rate_name']) !== 'Ongkos Kirim Ekonomis';
             });
+            
     
             if (!empty($regularRates)) {
                 $filteredRates = array_map(function ($rate) {
