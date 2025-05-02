@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:8888";
+const API_BASE_URL = "https://agen-doorasi.com";
 const ASSET_BASE_URL = "https://mganik-assets.pages.dev/assets";
 
 class DistributorSearch {

@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     debounce(function () {
       fetch(
-        `http://localhost:8888/show-regions/distributor?keyword=${encodeURIComponent(
+        `https://agen-doorasi.com/show-regions/distributor?keyword=${encodeURIComponent(
           keyword
         )}`
       )
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
       loadingIndicator.style.display = "inline-block";
 
       fetch(
-        `http://localhost:8888/search-distributors?province_name=${encodeURIComponent(
+        `https://agen-doorasi.com/search-distributors?province_name=${encodeURIComponent(
           province
         )}&region_name=${encodeURIComponent(regency)}`
       )
