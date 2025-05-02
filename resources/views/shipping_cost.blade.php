@@ -201,7 +201,7 @@
                                     <div class="mb-3">
                                         <label for="weight" class="form-label">Berat Barang (KG)</label>
                                         <input type="number" id="weight" class="form-control"
-                                            placeholder="Contoh: 2" min="1" required>
+                                            placeholder="Contoh: 2" value="1" min="1" required>
                                     </div>
 
                                     <input type="hidden" id="selected-location" name="selected_location"

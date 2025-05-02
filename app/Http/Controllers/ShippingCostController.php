@@ -46,7 +46,8 @@ class ShippingCostController extends Controller
 
         $allLocationDistributors = [];
         foreach ($distributors as $distributor) {
-            $locationData = $this->fetchLocationData($distributor->district_name);
+            $dataLocation = $distributor->district_name .', '. $distributor->regency_name .', '. $distributor->province_name;
+            $locationData = $this->fetchLocationData($dataLocation);
             $locationData['full_name'] = $distributor->full_name;
             $locationData['address'] = $distributor->address;
             $locationData['primary_phone'] = $distributor->primary_phone;
