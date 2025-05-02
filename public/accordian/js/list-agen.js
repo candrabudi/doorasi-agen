@@ -54,7 +54,7 @@ class DistributorSearch {
       return;
     }
 
-    regencyList.innerHTML = "<li>Loading...</li>";
+    regencyList.innerHTML = "";
     regencyList.style.display = "block";
 
     try {
@@ -99,7 +99,7 @@ class DistributorSearch {
       return;
     }
 
-    distributorList.innerHTML = "<li>Loading distributor...</li>";
+    distributorList.innerHTML = "";
     distributorList.style.display = "block";
 
     try {
