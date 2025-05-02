@@ -19,13 +19,27 @@ class ShippingCostController extends Controller
     public function calculateShippingCost(Request $request)
     {
         $province = Province::where('name', strtoupper($request->province))->first();
-        $regency = Regency::where('name', strtoupper('KABUPATEN '.$request->city))
-            ->where('province_id', $province->id)
-            ->first();  
 
-        $district = District::where('regency_id', $regency->id)
-            ->where('name', strtoupper($request->district))
+        if (str_contains($request->city, ',')) {
+            [$cityName, $cityType] = array_map('trim', explode(',', $request->city));
+            $regencyName = strtoupper($cityType . ' ' . $cityName);
+        } else {
+            $regencyName = strtoupper($request->city);
+        }
+
+        $districtName = strtoupper($request->district);
+        $districtName = str_replace(' - KOTA', '', $districtName);
+
+        $regency = Regency::where('name', $regencyName)
+            ->where('province_id', $province->id)
             ->first();
+
+        $district = $province;
+        if ($regency) {
+            $district = District::where('regency_id', $regency->id)
+                ->where('name', $districtName)
+                ->first();
+        }
 
         $distributors = DB::table('distributors')
             ->join('districts', 'distributors.district_id', '=', 'districts.id')
