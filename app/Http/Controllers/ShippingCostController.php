@@ -22,7 +22,14 @@ class ShippingCostController extends Controller
 
         if (str_contains($request->city, ',')) {
             [$cityName, $cityType] = array_map('trim', explode(',', $request->city));
-            $regencyName = strtoupper($cityType . ' ' . $cityName);
+            $typeMap = [
+                'Kab.' => 'KABUPATEN',
+                'Kota' => 'KOTA',
+                'Kota.' => 'KOTA',
+            ];
+        
+            $mappedType = $typeMap[$cityType] ?? strtoupper($cityType);
+            $regencyName = $mappedType . ' ' . strtoupper($cityName);
         } else {
             $regencyName = strtoupper($request->city);
         }
