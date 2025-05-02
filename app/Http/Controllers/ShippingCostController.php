@@ -176,7 +176,7 @@ class ShippingCostController extends Controller
             'origin_sub_district' => $originSubDistrict,
             'destination_sub_district' => $destinationSubDistrict,
             'weight' => $weight,
-            'include_flat_rate' => 'true',
+            'include_flat_rate' => 'false',
         ]);
         $filteredRates = [];
         if ($response->successful()) {

@@ -66,7 +66,7 @@
             position: absolute;
             top: 0.5rem;
             right: 0.5rem;
-            background-color: #ffe066;
+            background-color: #2ecc71;
             color: #000;
             font-size: 0.8rem;
             font-weight: bold;
