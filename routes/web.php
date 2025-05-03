@@ -21,7 +21,7 @@ Route::prefix('cek-ongkir')->name('calculate_shipping_cost.')->group(function ()
     Route::get('/process', [ShippingCostController::class, 'calculateShippingCost'])->name('calculateShippingCost');
 });
 
-
+Route::get('/list-of-area', [AreaController::class, 'listOfArea']);
 
 
 Route::middleware([CorsMiddleware::class])->group(function () {

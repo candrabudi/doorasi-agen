@@ -48,9 +48,11 @@ class ShippingCostController extends Controller
         }
 
         $distributors = DB::table('distributors')
+            ->join('users', 'distributors.user_id', '=', 'users.id')
             ->join('districts', 'distributors.district_id', '=', 'districts.id')
             ->join('regencies', 'districts.regency_id', '=', 'regencies.id')
             ->join('provinces', 'regencies.province_id', '=', 'provinces.id')
+            ->where('status', 1)
             ->select(
                 'distributors.*',
                 DB::raw("ROUND((

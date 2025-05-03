@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
     <style>
         body {
             background-color: #f9f9f9;
@@ -192,8 +194,14 @@
 
                                     <div class="mb-3 position-relative">
                                         <label for="destination" class="form-label">Alamat Tujuan</label>
-                                        <input type="text" id="destination" class="form-control"
-                                            placeholder="Ketik alamat...">
+                                        <div class="input-group">
+                                            <input type="text" id="destination" class="form-control"
+                                                placeholder="Ketik alamat...">
+                                            <button class="btn btn-danger" type="button" id="clear-destination"
+                                                style="display: none;">
+                                                <i class="bi bi-x-lg"></i>
+                                            </button>
+                                        </div>
                                         <ul id="search-results"
                                             class="search-results list-group position-absolute w-140 z-1"
                                             style="display: none;"></ul>
@@ -271,7 +279,20 @@
             </div>
         </div>
     </div>
+    <script>
+        const destinationInput = document.getElementById('destination');
+        const clearBtn = document.getElementById('clear-destination');
 
+        destinationInput.addEventListener('input', () => {
+            clearBtn.style.display = destinationInput.value ? 'block' : 'none';
+        });
+
+        clearBtn.addEventListener('click', () => {
+            destinationInput.value = '';
+            clearBtn.style.display = 'none';
+            document.getElementById('search-results').style.display = 'none';
+        });
+    </script>
     <script>
         function debounce(func, delay) {
             let timer;
@@ -470,7 +491,7 @@
 
                 const card = document.createElement('div');
                 card.classList.add('shipping-rate-card', 'card', 'p-3', 'h-100', 'shadow-sm',
-                'position-relative'); // padding diperbesar jadi p-3
+                    'position-relative'); // padding diperbesar jadi p-3
 
                 if (rate.shipment_price === minPrice) {
                     const label = document.createElement('div');
@@ -516,17 +537,18 @@
                 meta.classList.add('small');
 
                 const agentCode = document.createElement('div');
-                agentCode.classList.add('text-muted');
-                agentCode.textContent = `Kode Agen: ${rate.agent_code}`;
+                agentCode.classList.add('fw-bold', 'text-primary', 'mb-1', 'fs-6');
+                agentCode.textContent = `Kode Agen: ${rate.agent_code ? rate.agent_code : '-'}`;
                 meta.appendChild(agentCode);
 
                 const distributor = document.createElement('div');
-                distributor.classList.add('fw-bold', 'mb-1', 'fs-6'); // teks distributor diperbesar
-                distributor.textContent = `Distributor: ${rate.distributor_name}`;
+                distributor.classList.add('text-muted', 'small', 'mb-2');
+                distributor.textContent = `Nama Agen: ${rate.distributor_name}`;
                 meta.appendChild(distributor);
 
+
                 const address = document.createElement('div');
-                address.classList.add('fw-semibold', 'mb-1'); // teks alamat diperbesar
+                address.classList.add('fw-semibold', 'mb-1');
                 address.textContent = `Alamat: ${rate.province_name}, ${rate.regency_name}, ${rate.district_name}`;
                 meta.appendChild(address);
 
