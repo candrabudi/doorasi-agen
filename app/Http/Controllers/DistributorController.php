@@ -32,11 +32,10 @@ class DistributorController extends Controller
                   ->orWhere('agent_code', 'like', "%{$search}%");
             });
         }
+
+        $users = $query->paginate(10);
     
-        // Paginate the data
-        $users = $query->paginate(10); // Pagination with 10 users per page
-    
-        return response()->json($users); // Will return paginated data
+        return response()->json($users);
     }    
 
     public function edit($user_id)
@@ -77,7 +76,7 @@ class DistributorController extends Controller
             'status' => 'nullable|boolean',
             'full_name' => 'required|string|max:255',
             'primary_phone' => 'nullable|string|max:15',
-            'distributor_email' => 'nullable|email|max:255',
+            // 'distributor_email' => 'nullable|email|max:255',
             'agent_code' => 'nullable|string|max:255',
             'google_maps_url' => 'nullable|url',
             'address' => 'nullable|string|max:1000',
@@ -106,7 +105,7 @@ class DistributorController extends Controller
                 'user_id' => $user->id,
                 'full_name' => $validatedData['full_name'],
                 'primary_phone' => $validatedData['primary_phone'],
-                'email' => $validatedData['distributor_email'],
+                // 'email' => $validatedData['distributor_email'],
                 'agent_code' => $validatedData['agent_code'],
                 'google_maps_url' => $validatedData['google_maps_url'],
                 'address' => $validatedData['address'],
@@ -118,7 +117,7 @@ class DistributorController extends Controller
                 // 'village_id' => $validatedData['village_id'],
             ]);
 
-            if ($distributor->is_shipping && !empty($validatedData['shipping_methods'])) {
+            if (!empty($validatedData['shipping_methods'])) {
                 foreach ($validatedData['shipping_methods'] as $shippingMethodId) {
                     DB::table('distributor_shipments')->insert([
                         'distributor_id' => $distributor->id,
@@ -167,7 +166,7 @@ class DistributorController extends Controller
         $distributor->update([
             'full_name' => $request->full_name,
             'primary_phone' => $request->primary_phone,
-            'distributor_email' => $request->distributor_email,
+            // 'distributor_email' => $request->distributor_email,
             'agent_code' => $request->agent_code,
             'google_maps_url' => $request->google_maps_url,
             'address' => $request->address,

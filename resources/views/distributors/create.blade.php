@@ -7,7 +7,7 @@
                 <div class="d-flex flex-column flex-row-fluid">
                     <div class="page-title d-flex align-items-center gap-1 me-3">
                         <span class="text-gray-900 fw-bolder fs-2x lh-1">
-                            Users
+                            Agen Doorasi
                         </span>
                         <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-base ms-3 d-flex mb-0">
                             <li class="breadcrumb-item text-gray-700 fw-bold lh-1">
@@ -19,13 +19,13 @@
                                 <i class="ki-duotone ki-right fs-4 text-gray-700"></i>
                             </li>
                             <li class="breadcrumb-item text-gray-700 fw-bold lh-1">
-                                Distributor List
+                                Data Agen
                             </li>
                             <li class="breadcrumb-item mx-n1">
                                 <i class="ki-duotone ki-right fs-4 text-gray-700"></i>
                             </li>
                             <li class="breadcrumb-item text-gray-700 fw-bold lh-1">
-                                Distributor Edit
+                                Tambah Agen
                             </li>
                         </ul>
                     </div>
@@ -40,7 +40,7 @@
         <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
             data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
             <div class="card-title m-0">
-                <h3 class="fw-bold m-0">User and Distributor Profile</h3>
+                <h3 class="fw-bold m-0">User and Agen Profile</h3>
             </div>
         </div>
 
@@ -49,48 +49,66 @@
             @csrf
             <div id="kt_account_settings_profile_details" class="collapse show">
                 <div class="d-flex flex-column scroll-y px-5 px-lg-10">
+                    <h3 class="mb-4">Data Login User</h3>
+                    <hr class="border-top border-2 w-50 mx-auto">
+                    <div class="row">
+                        <div class="col-md-6 fv-row mb-7">
+                            <label class="required fw-semibold fs-6 mb-2">Nama Pengguna</label>
+                            <input type="text" name="username" class="form-control form-control-solid mb-3 mb-lg-0"
+                                placeholder="Nama Pengguna" value="{{ old('username') }}" required>
+                        </div>
 
-                    <!-- User Profile Fields -->
-                    <div class="fv-row mb-7">
-                        <label class="required fw-semibold fs-6 mb-2">Nama Pengguna</label>
-                        <input type="text" name="username" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Nama Pengguna" value="{{ old('username') }}" required>
-                    </div>
-
-                    <div class="fv-row mb-7">
-                        <label class="required fw-semibold fs-6 mb-2">Email</label>
-                        <input type="email" name="email" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="contoh@email.com" value="{{ old('email') }}" required>
-                    </div>
-
-                    <div class="fv-row mb-7">
-                        <label class="fw-semibold fs-6 mb-2">Kata Sandi <small class="text-muted">(Biarkan kosong jika tidak
-                                ingin mengganti)</small></label>
-                        <input type="password" name="password" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Kata Sandi Baru">
-                    </div>
-
-                    <div class="fv-row mb-7">
-                        <label class="required fw-semibold fs-6 mb-2">Nomor Telepon</label>
-                        <input type="text" name="phone_number" class="form-control form-control-solid mb-3 mb-lg-0"
-                            placeholder="Nomor Telepon" value="{{ old('phone_number') }}" required>
-                    </div>
-
-                    <div class="fv-row mb-7">
-                        <label class="required fw-semibold fs-6 mb-2">Status</label>
-                        <div class="d-flex align-items-center">
-                            <label class="form-check form-switch form-check-custom form-check-solid">
-                                <input class="form-check-input" name="status" type="checkbox" id="status_toggle"
-                                    value="1" {{ old('status') ? 'checked' : '' }}>
-                                <span class="form-check-label">
-                                    <div class="fw-bold text-gray-800">Aktif</div>
-                                </span>
-                            </label>
+                        <div class="col-md-6 fv-row mb-7">
+                            <label class="required fw-semibold fs-6 mb-2">Email</label>
+                            <input type="email" name="email" class="form-control form-control-solid mb-3 mb-lg-0"
+                                placeholder="contoh@email.com" value="{{ old('email') }}" required>
                         </div>
                     </div>
 
-                    <!-- Distributor Profile Fields -->
+                    <div class="row">
+                        <div class="col-md-6 fv-row mb-7">
+                            <label class="fw-semibold fs-6 mb-2">Kata Sandi
+                                <small class="text-muted">(Biarkan kosong jika tidak ingin mengganti)</small>
+                            </label>
+                            <div class="input-group">
+                                <input type="password" name="password" id="password"
+                                    class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Kata Sandi Baru">
+                                <button type="button" id="generate-password" class="btn btn-light">
+                                    Generate Password
+                                </button>
+                            </div>
+                            <div class="mt-4">
+                                <label class="fw-semibold fs-6 mb-2">Generated Password</label>
+                                <input type="text" id="generated-password" class="form-control form-control-solid" readonly>
+                            </div>
+                        </div>                        
+
+                        <div class="col-md-6 fv-row mb-7">
+                            <label class="required fw-semibold fs-6 mb-2">Nomor Telepon</label>
+                            <input type="text" name="phone_number" class="form-control form-control-solid mb-3 mb-lg-0"
+                                placeholder="Nomor Telepon" value="{{ old('phone_number') }}" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 fv-row mb-7">
+                            <label class="required fw-semibold fs-6 mb-2">Status</label>
+                            <div class="d-flex align-items-center">
+                                <label class="form-check form-switch form-check-custom form-check-solid">
+                                    <input class="form-check-input" name="status" type="checkbox" id="status_toggle"
+                                        value="1" {{ old('status') ? 'checked' : '' }}>
+                                    <span class="form-check-label">
+                                        <div class="fw-bold text-gray-800">Aktif</div>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div id="distributor_fields">
+                        <h3 class="mt-4 mb-4">Data Profile Agen</h3>
+                        <hr class="border-top border-2 w-50">
                         <div class="row mb-7">
                             <div class="col-md-6 fv-row">
                                 <label class="required fw-semibold fs-6 mb-2">Nama Lengkap</label>
@@ -107,20 +125,11 @@
 
                         <div class="row mb-7">
                             <div class="col-md-6 fv-row">
-                                <label class="fw-semibold fs-6 mb-2">Email Distributor</label>
-                                <input type="email" name="distributor_email" class="form-control form-control-solid"
-                                    value="{{ old('distributor_email') }}">
-                            </div>
-
-                            <div class="col-md-6 fv-row">
                                 <label class="fw-semibold fs-6 mb-2">Kode Agen <span
                                         class="text-muted">(Opsional)</span></label>
                                 <input type="text" name="agent_code" class="form-control form-control-solid"
                                     value="{{ old('agent_code') }}">
                             </div>
-                        </div>
-
-                        <div class="row mb-7">
                             <div class="col-md-6 fv-row">
                                 <label class="fw-semibold fs-6 mb-2">URL Google Maps</label>
                                 <input type="text" name="google_maps_url" class="form-control form-control-solid"
@@ -245,6 +254,27 @@
 @endsection
 @push('scripts')
     <script>
+        document.getElementById('generate-password').addEventListener('click', function() {
+            const password = generateRandomPassword();
+            // Set the generated password into both fields
+            document.getElementById('password').value = password;
+            document.getElementById('generated-password').value = password;
+        });
+
+        // Function to generate a random password
+        function generateRandomPassword(length = 12) {
+            const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/";
+            let password = "";
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * charset.length);
+                password += charset[randomIndex];
+            }
+            return password;
+        }
+    </script>
+
+
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const checkboxes = document.querySelectorAll('.toggle-marketplace');
 
@@ -253,8 +283,6 @@
                     const urlInput = this.closest('.d-flex').querySelector('.marketplace-url');
                     urlInput.style.display = this.checked ? 'block' : 'none';
                 });
-
-                // Initial state
                 const urlInput = checkbox.closest('.d-flex').querySelector('.marketplace-url');
                 urlInput.style.display = checkbox.checked ? 'block' : 'none';
             });
