@@ -331,3 +331,23 @@ li {
     width: 30px;
     margin-right: 8px;
 }
+
+.info-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .info-icon {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+  }
+  
+  .address {
+    margin-bottom: 12px;
+  }
+  

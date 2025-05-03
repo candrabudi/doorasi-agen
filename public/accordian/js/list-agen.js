@@ -133,63 +133,78 @@ class DistributorSearch {
     const card = document.createElement("div");
     card.className = "distributor-card";
   
-    // --- Card Header ---
+    // --- Header ---
     const header = document.createElement("div");
     header.className = "card-header d-flex align-items-center";
   
     const img = document.createElement("img");
     img.src =
       distributor.image_url ||
-      `${API_BASE_URL}/assets/media/logos/logo-agen-doorasi.png`;
+      "https://agen-doorasi.com/assets/media/logos/logo-agen-doorasi.png";
     img.className = "profile-img";
     img.style.width = "40px";
     img.style.height = "40px";
     img.style.objectFit = "contain";
   
     const info = document.createElement("div");
-    info.className = "ms-3";
+    info.className = "ms-2"; // Jarak lebih dekat antar logo dan nama
   
     const name = document.createElement("p");
     name.className = "distributor-name";
     name.textContent = distributor.name || distributor.full_name;
   
-    info.appendChild(name);
+    // ✅ Checklist hijau di samping nama
+    const checkIcon = document.createElement("i");
+    checkIcon.className = "fa-solid fa-circle-check";
+    checkIcon.style.color = "green";
+    checkIcon.style.marginLeft = "6px";
+  
+    const nameWrapper = document.createElement("div");
+    nameWrapper.style.display = "flex";
+    nameWrapper.style.alignItems = "center";
+    nameWrapper.appendChild(name);
+    nameWrapper.appendChild(checkIcon);
+  
+    info.appendChild(nameWrapper);
     header.appendChild(img);
     header.appendChild(info);
     card.appendChild(header);
   
-    // --- Card Body ---
+    // --- Body ---
     const body = document.createElement("div");
     body.className = "card-body";
   
     // Address
     const address = document.createElement("p");
     address.className = "address";
-    address.textContent = `${distributor.address}, ${distributor.district.name}, ${distributor.regency.name}, ${distributor.regency.province.name}`;
+    const district = distributor.district && distributor.district.name || "";
+    const regency = distributor.regency && distributor.regency.name || "";
+    const province = distributor.regency && distributor.regency.province && distributor.regency.province.name || "";
+    address.textContent = `${distributor.address}, ${district}, ${regency}, ${province}`;
     body.appendChild(address);
   
-    // Info rows (maps, phone, etc.)
+    // Info rows
     const infoRows = [
       {
-        icon: `${ASSET_BASE_URL}/pinlocation_googlemaps.svg`,
+        icon: "https://mganik-assets.pages.dev/assets/pinlocation_googlemaps.svg",
         text: `<a href="${distributor.google_maps_url || "#"}" target="_blank">Peta Google</a>`
       },
       {
-        icon: `${ASSET_BASE_URL}/phone.svg`,
-        text: `<a href="tel:${distributor.phone}">${distributor.primary_phone}</a>`
-      },
+        icon: "https://mganik-assets.pages.dev/assets/phone.svg",
+        text: `<a href="tel:${distributor.primary_phone}">${distributor.primary_phone}</a>`
+      }
     ];
   
     if (distributor.is_shipping) {
       infoRows.push({
-        icon: `${ASSET_BASE_URL}/pengiriman.svg`,
+        icon: "https://mganik-assets.pages.dev/assets/pengiriman.svg",
         text: 'Kurir Lainnya'
       });
     }
   
     if (distributor.is_cod) {
       infoRows.push({
-        icon: `${ASSET_BASE_URL}/cod.svg`,
+        icon: "https://mganik-assets.pages.dev/assets/cod.svg",
         text: 'COD / Cash on Delivery'
       });
     }
@@ -210,8 +225,8 @@ class DistributorSearch {
       row.appendChild(span);
       body.appendChild(row);
     });
-
-    // Shipment section
+  
+    // Shipments
     if (Array.isArray(distributor.shipments) && distributor.shipments.length > 0) {
       const shipmentRow = document.createElement("div");
       shipmentRow.className = "info-row";
@@ -220,35 +235,26 @@ class DistributorSearch {
       icon.loading = "lazy";
       icon.alt = "shipping-icon";
       icon.className = "info-icon";
-      icon.src = `${ASSET_BASE_URL}/pengiriman.svg`;
+      icon.src = "https://mganik-assets.pages.dev/assets/pengiriman.svg";
   
       const label = document.createElement("span");
       label.style.fontSize = "14px";
       label.textContent = distributor.shipments.map(s => s.name).join(", ");
   
-      const checkIcon = document.createElement("i");
-      checkIcon.className = "fa-solid fa-circle-check check-icon";
-      checkIcon.style.color = "#ee3b59";
-      checkIcon.style.marginLeft = "6px";
-  
       shipmentRow.appendChild(icon);
       shipmentRow.appendChild(label);
-      shipmentRow.appendChild(checkIcon);
   
       body.appendChild(shipmentRow);
     }
   
-    // Marketplace section
-    if (
-      Array.isArray(distributor.marketplaces) &&
-      distributor.marketplaces.length > 0
-    ) {
+    // Marketplaces
+    if (Array.isArray(distributor.marketplaces) && distributor.marketplaces.length > 0) {
       const marketplaceDiv = document.createElement("div");
       marketplaceDiv.className = "marketplace-icons mt-2";
   
       distributor.marketplaces.forEach((mp) => {
         const a = document.createElement("a");
-        a.href = mp.pivot?.url || "#";
+        a.href = mp.pivot && mp.pivot.url ? mp.pivot.url : "#";
         a.target = "_blank";
   
         const icon = document.createElement("img");
@@ -265,27 +271,26 @@ class DistributorSearch {
       body.appendChild(marketplaceDiv);
     }
   
-    
-  
     card.appendChild(body);
   
-    // --- Footer with WhatsApp Button ---
+    // --- Footer ---
     const footer = document.createElement("div");
     footer.className = "card-footer mt-3";
   
     const btn = document.createElement("button");
     btn.className = "btn-wa";
-    btn.onclick = () =>
-      directToWA(
-        distributor.primary_phone,
-        "Halo, saya tertarik membeli produk Doorasi."
-      );
+    btn.onclick = function () {
+      directToWA(distributor.primary_phone, "Halo, saya tertarik membeli produk Doorasi.");
+    };
   
-    const waIcon = document.createElement("img");
-    waIcon.src = `${ASSET_BASE_URL}/whatsapp.png`;
-    waIcon.alt = "WhatsApp";
-    btn.appendChild(waIcon);
-    btn.append(" BELI DISINI");
+    const waImg = document.createElement("img");
+    waImg.src = "https://mganik-assets.pages.dev/assets/whatsapp.png";
+    waImg.alt = "WhatsApp";
+    waImg.width = 18;
+    waImg.style.marginRight = "6px";
+  
+    btn.appendChild(waImg);
+    btn.appendChild(document.createTextNode("BELI DISINI"));
   
     footer.appendChild(btn);
     card.appendChild(footer);
