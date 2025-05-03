@@ -81,7 +81,7 @@ class Accordiancontroller extends Controller
             ->join('users', 'distributors.user_id', '=', 'users.id')
             ->where('users.status', 1)
             ->with([
-                'shipmentDistributor',
+                'shipments',
                 'district:id,name',
                 'regency:id,name,province_id',
                 'regency.province:id,name',

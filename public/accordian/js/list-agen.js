@@ -16,9 +16,7 @@ class DistributorSearch {
 
   async loadProvinceDistributors() {
     try {
-      const response = await fetch(
-        `${API_BASE_URL}/get-province-distributors`
-      );
+      const response = await fetch(`${API_BASE_URL}/get-province-distributors`);
       const provinces = await response.json();
 
       const accordion = this.elements.accordionContainer;
@@ -134,10 +132,11 @@ class DistributorSearch {
   createDistributorCard(distributor) {
     const card = document.createElement("div");
     card.className = "distributor-card";
-
+  
+    // --- Card Header ---
     const header = document.createElement("div");
     header.className = "card-header d-flex align-items-center";
-
+  
     const img = document.createElement("img");
     img.src =
       distributor.image_url ||
@@ -146,90 +145,149 @@ class DistributorSearch {
     img.style.width = "40px";
     img.style.height = "40px";
     img.style.objectFit = "contain";
-
+  
     const info = document.createElement("div");
     info.className = "ms-3";
-
+  
     const name = document.createElement("p");
     name.className = "distributor-name";
     name.textContent = distributor.name || distributor.full_name;
-
+  
     info.appendChild(name);
     header.appendChild(img);
     header.appendChild(info);
     card.appendChild(header);
-
+  
+    // --- Card Body ---
     const body = document.createElement("div");
     body.className = "card-body";
-
-    body.innerHTML = ` 
-            <p class="address">${distributor.address}, ${
-      distributor.district.name
-    }, ${distributor.regency.name}, ${distributor.regency.province.name}</p>
-            <p><img class="mr-2" src="${ASSET_BASE_URL}/pinlocation_googlemaps.svg"><a href="${
-      distributor.google_maps_url || "#"
-    }" target="_blank">Peta Google</a></p>
-            <p><img class="mr-2" src="${ASSET_BASE_URL}/phone.svg"><a href="tel:${
-      distributor.phone
-    }">${distributor.primary_phone}</a></p>
-        `;
-
+  
+    // Address
+    const address = document.createElement("p");
+    address.className = "address";
+    address.textContent = `${distributor.address}, ${distributor.district.name}, ${distributor.regency.name}, ${distributor.regency.province.name}`;
+    body.appendChild(address);
+  
+    // Info rows (maps, phone, etc.)
+    const infoRows = [
+      {
+        icon: `${ASSET_BASE_URL}/pinlocation_googlemaps.svg`,
+        text: `<a href="${distributor.google_maps_url || "#"}" target="_blank">Peta Google</a>`
+      },
+      {
+        icon: `${ASSET_BASE_URL}/phone.svg`,
+        text: `<a href="tel:${distributor.phone}">${distributor.primary_phone}</a>`
+      },
+    ];
+  
     if (distributor.is_shipping) {
-      body.innerHTML += `<p><img class="mr-2" src="${ASSET_BASE_URL}/pengiriman.svg">Kurir Lainnya</p>`;
+      infoRows.push({
+        icon: `${ASSET_BASE_URL}/pengiriman.svg`,
+        text: 'Kurir Lainnya'
+      });
     }
-
+  
     if (distributor.is_cod) {
-      body.innerHTML += `<p><img class="mr-2" src="${ASSET_BASE_URL}/cod.svg">COD / Cash on Delivery</p>`;
+      infoRows.push({
+        icon: `${ASSET_BASE_URL}/cod.svg`,
+        text: 'COD / Cash on Delivery'
+      });
     }
-
+  
+    infoRows.forEach(({ icon, text }) => {
+      const row = document.createElement("div");
+      row.className = "info-row";
+  
+      const img = document.createElement("img");
+      img.src = icon;
+      img.className = "info-icon";
+      img.alt = "";
+  
+      const span = document.createElement("span");
+      span.innerHTML = text;
+  
+      row.appendChild(img);
+      row.appendChild(span);
+      body.appendChild(row);
+    });
+  
+    // Marketplace section
     if (
       Array.isArray(distributor.marketplaces) &&
       distributor.marketplaces.length > 0
     ) {
       const marketplaceDiv = document.createElement("div");
       marketplaceDiv.className = "marketplace-icons mt-2";
-
+  
       distributor.marketplaces.forEach((mp) => {
         const a = document.createElement("a");
         a.href = mp.pivot?.url || "#";
         a.target = "_blank";
-
+  
         const icon = document.createElement("img");
         icon.src = "https://agen-doorasi.com/storage/icons/" + mp.icon;
         icon.alt = mp.name;
         icon.title = mp.name;
         icon.style.width = "30px";
         icon.style.marginRight = "5px";
-
+  
         a.appendChild(icon);
         marketplaceDiv.appendChild(a);
       });
-
+  
       body.appendChild(marketplaceDiv);
     }
-
+  
+    // Shipment section
+    if (Array.isArray(distributor.shipments) && distributor.shipments.length > 0) {
+      const shipmentRow = document.createElement("div");
+      shipmentRow.className = "info-row";
+  
+      const icon = document.createElement("img");
+      icon.loading = "lazy";
+      icon.alt = "shipping-icon";
+      icon.className = "info-icon";
+      icon.src = `${ASSET_BASE_URL}/pengiriman.svg`;
+  
+      const label = document.createElement("span");
+      label.style.fontSize = "14px";
+      label.textContent = distributor.shipments.map(s => s.name).join(", ");
+  
+      const checkIcon = document.createElement("i");
+      checkIcon.className = "fa-solid fa-circle-check check-icon";
+      checkIcon.style.color = "#ee3b59";
+      checkIcon.style.marginLeft = "6px";
+  
+      shipmentRow.appendChild(icon);
+      shipmentRow.appendChild(label);
+      shipmentRow.appendChild(checkIcon);
+  
+      body.appendChild(shipmentRow);
+    }
+  
     card.appendChild(body);
-
+  
+    // --- Footer with WhatsApp Button ---
     const footer = document.createElement("div");
     footer.className = "card-footer mt-3";
-
+  
     const btn = document.createElement("button");
     btn.className = "btn-wa";
     btn.onclick = () =>
-      this.directToWA(
+      directToWA(
         distributor.primary_phone,
         "Halo, saya tertarik membeli produk Doorasi."
       );
-
+  
     const waIcon = document.createElement("img");
     waIcon.src = `${ASSET_BASE_URL}/whatsapp.png`;
     waIcon.alt = "WhatsApp";
     btn.appendChild(waIcon);
     btn.append(" BELI DISINI");
-
+  
     footer.appendChild(btn);
     card.appendChild(footer);
-
+  
     return card;
   }
 
