@@ -63,6 +63,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('distributors')->name('distributors.')->group(function () {
         Route::get('/', [DistributorController::class, 'index'])->name('index');
+        Route::get('/data', [DistributorController::class, 'data'])->name('data');
         Route::get('/create', [DistributorController::class, 'create'])->name('create');
         Route::post('/store', [DistributorController::class, 'store'])->name('store');
         Route::get('/{a}/edit', [DistributorController::class, 'edit'])->name('edit');

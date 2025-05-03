@@ -17,11 +17,27 @@ use Illuminate\Support\Facades\Log;
 
 class DistributorController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::where('role', 'distributor')->get();
-        return view('distributors.index', compact('users'));
+        return view('distributors.index');
     }
+
+    public function data(Request $request)
+    {
+        $query = User::with('distributor')->where('role', 'distributor');
+    
+        if ($search = $request->input('search')) {
+            $query->whereHas('distributor', function ($q) use ($search) {
+                $q->where('full_name', 'like', "%{$search}%")
+                  ->orWhere('agent_code', 'like', "%{$search}%");
+            });
+        }
+    
+        // Paginate the data
+        $users = $query->paginate(10); // Pagination with 10 users per page
+    
+        return response()->json($users); // Will return paginated data
+    }    
 
     public function edit($user_id)
     {
