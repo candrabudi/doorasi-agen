@@ -210,6 +210,33 @@ class DistributorSearch {
       row.appendChild(span);
       body.appendChild(row);
     });
+
+    // Shipment section
+    if (Array.isArray(distributor.shipments) && distributor.shipments.length > 0) {
+      const shipmentRow = document.createElement("div");
+      shipmentRow.className = "info-row";
+  
+      const icon = document.createElement("img");
+      icon.loading = "lazy";
+      icon.alt = "shipping-icon";
+      icon.className = "info-icon";
+      icon.src = `${ASSET_BASE_URL}/pengiriman.svg`;
+  
+      const label = document.createElement("span");
+      label.style.fontSize = "14px";
+      label.textContent = distributor.shipments.map(s => s.name).join(", ");
+  
+      const checkIcon = document.createElement("i");
+      checkIcon.className = "fa-solid fa-circle-check check-icon";
+      checkIcon.style.color = "#ee3b59";
+      checkIcon.style.marginLeft = "6px";
+  
+      shipmentRow.appendChild(icon);
+      shipmentRow.appendChild(label);
+      shipmentRow.appendChild(checkIcon);
+  
+      body.appendChild(shipmentRow);
+    }
   
     // Marketplace section
     if (
@@ -238,32 +265,7 @@ class DistributorSearch {
       body.appendChild(marketplaceDiv);
     }
   
-    // Shipment section
-    if (Array.isArray(distributor.shipments) && distributor.shipments.length > 0) {
-      const shipmentRow = document.createElement("div");
-      shipmentRow.className = "info-row";
-  
-      const icon = document.createElement("img");
-      icon.loading = "lazy";
-      icon.alt = "shipping-icon";
-      icon.className = "info-icon";
-      icon.src = `${ASSET_BASE_URL}/pengiriman.svg`;
-  
-      const label = document.createElement("span");
-      label.style.fontSize = "14px";
-      label.textContent = distributor.shipments.map(s => s.name).join(", ");
-  
-      const checkIcon = document.createElement("i");
-      checkIcon.className = "fa-solid fa-circle-check check-icon";
-      checkIcon.style.color = "#ee3b59";
-      checkIcon.style.marginLeft = "6px";
-  
-      shipmentRow.appendChild(icon);
-      shipmentRow.appendChild(label);
-      shipmentRow.appendChild(checkIcon);
-  
-      body.appendChild(shipmentRow);
-    }
+    
   
     card.appendChild(body);
   
