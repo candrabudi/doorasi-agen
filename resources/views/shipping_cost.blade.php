@@ -537,14 +537,15 @@
                 meta.classList.add('small');
 
                 const agentCode = document.createElement('div');
-                agentCode.classList.add('fw-bold', 'text-primary', 'mb-1', 'fs-6');
+                agentCode.classList.add('fw-bold', 'mb-1', 'fs-6');
                 agentCode.textContent = `Kode Agen: ${rate.agent_code ? rate.agent_code : '-'}`;
                 meta.appendChild(agentCode);
 
                 const distributor = document.createElement('div');
-                distributor.classList.add('text-muted', 'small', 'mb-2');
-                distributor.textContent = `Nama Agen: ${rate.distributor_name}`;
+                distributor.classList.add('mb-1', 'fs-6');
+                distributor.textContent = `Distributor: ${rate.distributor_name ? rate.distributor_name : '-'}`;
                 meta.appendChild(distributor);
+
 
 
                 const address = document.createElement('div');
