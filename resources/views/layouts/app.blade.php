@@ -199,10 +199,14 @@
                                     </a>
                                 </div>
                                 <div class="menu-item px-5">
-                                    <a href="authentication/sign-in/basic.html" class="menu-link px-5">
-                                        Keluar
-                                    </a>
+                                    <form action="{{ route('logout') }}" method="POST" class="menu-link px-5">
+                                        @csrf
+                                        <button type="submit" class="btn btn-link" style="border: none; background: none; padding: 0;">
+                                            Keluar
+                                        </button>
+                                    </form>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>

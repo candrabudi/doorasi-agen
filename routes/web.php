@@ -14,7 +14,7 @@ use App\Http\Middleware\CorsMiddleware;
 
 Route::get('/login', [AuthController::class, 'pageLogin'])->name('login');
 Route::post('/login/process', [AuthController::class, 'login'])->name('login.process');
-
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::prefix('cek-ongkir')->name('calculate_shipping_cost.')->group(function () {
     Route::get('/', [ShippingCostController::class, 'index'])->name('index');
