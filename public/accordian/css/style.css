@@ -1,0 +1,333 @@
+/* -------------------- Common Card Styles -------------------- */
+.distributor-card,
+.distributor-card-search {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin: 16px 0;
+    padding: 24px;
+    transition: box-shadow 0.2s ease-in-out;
+    border: 1px solid #f1f1f1;
+}
+
+/* -------------------- Hover Effect (Common) -------------------- */
+.distributor-card:hover,
+.distributor-card-search:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* -------------------- Distributor Card Specific -------------------- */
+.distributor-card {
+    margin-left: -20px;
+    border: 1px solid #ff4d4d;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    padding: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+/* -------------------- Distributor Card Search Specific -------------------- */
+/* (no overrides currently; only uses base card styles) */
+
+
+/* -------------------- Card Header -------------------- */
+.card-header {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+.card-header img {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    max-width: 100%;
+    height: 100% !important;
+}
+
+/* -------------------- Profile Image -------------------- */
+.profile-img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    background: #fafafa;
+}
+
+/* -------------------- Card Body -------------------- */
+.card-body {
+    margin-top: -10px;
+}
+
+.card-body p {
+    margin: 4px 0;
+    font-size: 0.925rem;
+    color: #555;
+    display: flex;
+    align-items: center;
+    margin-left: -15px;
+}
+
+.card-body p a {
+    margin-left: 10px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.card-body img {
+    width: 16px;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* -------------------- Distributor Name -------------------- */
+.distributor-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 6px;
+}
+
+/* -------------------- Address and Contact -------------------- */
+.address,
+.contact-shipping {
+    font-size: 0.95rem;
+    color: #606770;
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+
+.address {
+    font-size: 14px;
+    color: #666;
+}
+
+.contact-shipping a {
+    color: #1877f2;
+    text-decoration: none;
+}
+
+.contact-shipping a:hover {
+    text-decoration: underline;
+}
+
+/* -------------------- WhatsApp Button -------------------- */
+.btn-whatsapp,
+.btn-wa {
+    display: flex;
+    align-items: center;
+    background-color: #25D366;
+    color: #fff;
+    border-radius: 9999px;
+    padding: 10px 18px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    gap: 6px;
+}
+
+.btn-whatsapp:hover,
+.btn-wa:hover {
+    background-color: #128C7E;
+}
+
+.btn-whatsapp img,
+.btn-wa img {
+    width: 16px;
+    height: 16px;
+}
+
+/* -------------------- Marketplace Icons -------------------- */
+.marketplace-icons,
+.shipment-section div {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+}
+
+.marketplace-icons img {
+    width: 32px;
+    margin-right: 8px;
+}
+
+/* -------------------- Card Footer -------------------- */
+.card-footer {
+    margin-top: 14px;
+    text-align: right;
+}
+
+/* -------------------- Search Section -------------------- */
+.search-section {
+    max-width: 700px;
+    margin: 0 auto 2rem;
+}
+
+.label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.search-wrapper {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    padding: 8px 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 8px;
+    font-size: 14px;
+    background: transparent;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.clear {
+    margin-left: 8px;
+}
+
+/* -------------------- Search Result -------------------- */
+.result-container {
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    border: 1px solid #ff4d4d;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.result-item {
+    padding: 12px 16px;
+    background: white;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    color: #ff4d4d;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.result-item:hover {
+    background: #fff5da;
+}
+
+/* -------------------- Other General -------------------- */
+li {
+    list-style: none;
+}
+
+.distributor-container {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.opt-location {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.acnav__label {
+    background-color: #ff4d4d;
+    color: #FFF;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    border: 1px solid #ffb8b8;
+    transition: background-color 0.2s ease;
+}
+
+.acnav__label:hover {
+    background-color: #ff3838;
+}
+
+.acnav__list--level2,
+.acnav__list--level3 {
+    padding-left: 0rem;
+    margin-bottom: 0rem;
+}
+
+.chevron {
+    transition: transform 0.3s ease;
+}
+
+.rotate {
+    transform: rotate(180deg);
+}
+
+/* -------------------- Responsive -------------------- */
+@media (max-width: 768px) {
+    .distributor-card,
+    .distributor-card-search {
+        padding: 16px;
+    }
+
+    .btn-whatsapp,
+    .btn-wa {
+        font-size: 0.85rem;
+        padding: 8px 14px;
+    }
+
+    .distributor-name {
+        font-size: 1rem;
+    }
+}
+
+
+.info-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .info-icon {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+  }
+  .address-container {
+    margin-bottom: 12px;
+}
+
+.address-line {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 4px;
+    line-height: 1.4;
+}
+
+.card-body p {
+    margin: 4px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.marketplace-icons img {
+    width: 30px;
+    margin-right: 8px;
+}
