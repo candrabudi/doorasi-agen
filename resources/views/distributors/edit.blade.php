@@ -186,7 +186,7 @@
                         </div>
                     </div>
 
-                    <div class="row mb-7" id="shipping-methods-wrapper" style="display: none;">
+                    <div class="row mb-7" id="shipping-methods-wrapper">
                         <div class="col-12 fv-row">
                             <label class="fw-semibold fs-6 mb-2">Metode Pengiriman Tersedia</label>
                             <div class="d-flex flex-wrap gap-4">
@@ -302,19 +302,24 @@
             });
         });
     </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const isShippingCheckbox = document.getElementById('is_shipping');
-            const shippingWrapper = document.getElementById('shipping-methods-wrapper');
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const isShippingCheckbox = document.getElementById('is_shipping');
+        const shippingWrapper = document.getElementById('shipping-methods-wrapper');
+        const shippingMethodCheckboxes = shippingWrapper.querySelectorAll('input[type="checkbox"]');
 
-            function toggleShippingOptions() {
-                shippingWrapper.style.display = isShippingCheckbox.checked ? 'block' : 'none';
-            }
-
-            toggleShippingOptions();
-            isShippingCheckbox.addEventListener('change', toggleShippingOptions);
+        // Jika salah satu metode pengiriman di-klik, pastikan is_shipping ikut dicentang
+        shippingMethodCheckboxes.forEach(cb => {
+            cb.addEventListener('change', function () {
+                if (this.checked) {
+                    isShippingCheckbox.checked = true;
+                }
+            });
         });
-    </script>
+    });
+</script>
+
+    
     <script>
         $(document).ready(function() {
             function loadOptions(url, targetSelect, selectedId = null, defaultOption = 'Select', callback = null) {
